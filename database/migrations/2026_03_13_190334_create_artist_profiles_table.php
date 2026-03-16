@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('stage_name')->nullable();
             $table->text('bio')->nullable();
-            $table->string('press_text')->nullable();
+            $table->text('press_text')->nullable();
             $table->string('genre')->nullable();
             $table->unsignedInteger('price_min')->nullable();
             $table->unsignedInteger('price_max')->nullable();

@@ -21,7 +21,7 @@ class ArtistProfileFactory extends Factory
             'user_id' => User::factory()->artist(),
             'stage_name' => fake()->name(),
             'bio' => fake()->paragraph(),
-            'press_text' => fake()->paragraph(3),
+            'press_text' => fake()->paragraph(10),
             'genre' => fake()->randomElement(['Rock', 'Jazz', 'Pop', 'Hip Hop', 'Classical', 'Underground']),
             'price_min' => fake()->numberBetween(100, 1000),
             'price_max' => fake()->numberBetween(1000, 3000),
