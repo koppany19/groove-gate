@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\UserRole;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -26,10 +27,27 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'role' => fake()->randomElement(UserRole::cases()),
+            'image_path' => fake()->imageUrl(400, 400, 'people'),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
+    }
+
+    public function organiser(): static
+    {
+        return $this->state(['role' => UserRole::ORGANISER]);
+    }
+
+    public function artist(): static
+    {
+        return $this->state(['role' => UserRole::ARTIST]);
+    }
+
+    public function audience(): static
+    {
+        return $this->state(['role' => UserRole::AUDIENCE]);
     }
 
     /**

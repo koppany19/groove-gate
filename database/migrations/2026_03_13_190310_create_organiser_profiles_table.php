@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('organiser_profile', function (Blueprint $table) {
+        Schema::create('organiser_profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->string('full_name')->nullable();
             $table->string('company_name')->nullable();
             $table->text('description')->nullable();
             $table->string('phone')->nullable();
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('organiser_profile');
+        Schema::dropIfExists('organiser_profiles');
     }
 };

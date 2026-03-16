@@ -52,6 +52,10 @@ class User extends Authenticatable
         ];
     }
 
+    protected $attributes = [
+        'role' => UserRole::AUDIENCE->value,
+    ];
+
     public function artistProfile(): HasOne
     {
         return $this->hasOne(ArtistProfile::class);
