@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\ArtistTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,11 +16,13 @@ class ArtistProfile extends Model
         'bio',
         'press_text',
         'genre',
+        'genre_other',
         'price_min',
         'price_max',
         'duration',
         'location',
         'profile_image',
+        'artist_type',
         'is_available',
     ];
 
@@ -28,6 +31,12 @@ class ArtistProfile extends Model
         'price_min' => 'integer',
         'price_max' => 'integer',
         'duration' => 'integer',
+        'artist_type' => ArtistTypeEnum::class,
+        'genre' => 'array',
+    ];
+
+    protected $attributes = [
+        'artist_type' => ArtistTypeEnum::LIVE->value,
     ];
 
     public function user(): BelongsTo

@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\ArtistTypeEnum;
+use App\GenreType;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,12 +19,15 @@ class ArtistProfileFactory extends Factory
      */
     public function definition(): array
     {
+
         return [
             'user_id' => User::factory()->artist(),
             'stage_name' => fake()->name(),
             'bio' => fake()->paragraph(),
             'press_text' => fake()->paragraph(10),
-            'genre' => fake()->randomElement(['Rock', 'Jazz', 'Pop', 'Hip Hop', 'Classical', 'Underground']),
+            'genre' => fake()->randomElements(array_column(GenreType::cases(), 'value'), fake()->numberBetween(1, 4)),
+            'genre_other' => null,
+            'artist_type' => fake()->randomElement(ArtistTypeEnum::cases()),
             'price_min' => fake()->numberBetween(100, 1000),
             'price_max' => fake()->numberBetween(1000, 3000),
             'duration' => fake()->randomElement([30, 45, 60, 90, 120]),
