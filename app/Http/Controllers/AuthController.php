@@ -59,7 +59,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route($user->role->value . 'dashboard')->with('success', 'You have been registered successfully.');
+        return redirect()->route($user->role->value . '.dashboard')->with('success', 'You have been registered successfully.');
     }
 
     public function login(LoginRequest $request)
