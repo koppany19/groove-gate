@@ -6,9 +6,20 @@
             </a>
         </div>
 
-        <div class="flex gap-x-5">
-            <a href="/login">Sign In</a>
-            <a href="/register" class="btn">Register</a>
+        <div class="flex gap-x-5 items-center">
+            @auth
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="text-sm text-foreground/80 hover:text-foreground transition-colors">
+                        Logout
+                    </button>
+                </form>
+            @endauth
+
+            @guest
+                <a href="{{ route('login') }}">Login</a>
+                <a href="/register" >Register</a>
+            @endguest
         </div>
     </div>
 </nav>
