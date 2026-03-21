@@ -16,13 +16,14 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
+
 // Organiser routes
 Route::middleware(['auth', 'role:organiser'])
     ->prefix('organiser')
     ->name('organiser.')
     ->group(function () {
         Route::get('/dashboard', function () {
-            return 'Welcome Organiser!';
+            return view('organiser.dashboard');
         })->name('dashboard');
     });
 
@@ -32,7 +33,7 @@ Route::middleware(['auth', 'role:artist'])
     ->name('artist.')
     ->group(function () {
         Route::get('/dashboard', function () {
-            return 'Welcome Artist!';
+            return view('artist.dashboard');
         })->name('dashboard');
     });
 
@@ -42,6 +43,6 @@ Route::middleware(['auth', 'role:audience'])
     ->name('audience.')
     ->group(function () {
         Route::get('/events', function () {
-            return 'Welcome Audience!';
+            return view('audience.dashboard');
         })->name('dashboard');
     });
