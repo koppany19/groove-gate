@@ -6,6 +6,7 @@ use App\ArtistTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ArtistProfile extends Model
 {
@@ -42,5 +43,37 @@ class ArtistProfile extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function tracks(): HasMany
+    {
+        return $this->hasMany(ArtistTrack::class);
+    }
+
+    public function availability(): HasMany
+    {
+        return $this->hasMany(ArtistAvailability::class);
+    }
+
+    public function profileCompleteness(): int
+    {
+        $fields = [
+            $this->stage_name,
+            $this->bio,
+            $this->press_text,
+            $this->genre,
+            $this->price_min,
+            $this->location,
+            $this->profile_image,
+        ];
+
+        $filled = collect($fields)->filter()->count();
+        $total = count($fields);
+
+        $hasTracks = $this->tracks()->exists();
+        if ($hasTracks) $filled++;
+        $total++;
+
+        return (int) ($filled / $total * 100);
     }
 }
