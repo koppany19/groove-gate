@@ -16,7 +16,7 @@
 
             <div class="flex items-center gap-4">
                 <a href="{{ route('register') }}"
-                   class="px-7 py-3 rounded-full bg-(--color-primary) text-white font-semibold text-base hover:opacity-90 transition-all">
+                   class="px-7 py-3 rounded-full bg-(--color-primary) text-white font-semibold text-base hover:bg-(--color-link) transition-all">
                     Get started
                 </a>
                 <a href="#events"
