@@ -5,8 +5,11 @@ use App\Http\Controllers\EmailVerificationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    if (auth()->check()) {
+        return redirect()->route(auth()->user()->role->value . '.dashboard');
+    }
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 @import 'tailwindcss';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -6,15 +7,33 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
 
-    --color-background: #0b1220;
-    --color-foreground: #c9d1d9;
-    --color-card: #0.16 0 0;
-    --color-primary: oklch(0.65 0.15 160);
-    --color-primary-foreground: oklch(0.12 0 0);
-    --color-border: oklch(0.24 0 0);
-    --color-input: oklch(0.24 0 0);
-    --color-muted-foreground: oklch(0.6 0 0)
+    --color-background: #101722;
+    --color-surface: #13151c;
+    --color-surface-2: #151C26;
+    --color-border: #2a2d38;
+
+    --color-foreground: #e8eaf0;
+    --color-muted: #6b7280;
+    --color-muted-2: #4b5563;
+
+    --color-primary: #0E4D7F;
+    --color-primary-hover: #2563eb;
+    --color-link: #1881CC;
+    --color-primary-subtle: rgba(59, 130, 246, 0.12);
+
+    --color-danger: #ef4444;
+    --color-danger-subtle: rgba(239, 68, 68, 0.12);
+
+    --color-success: #10b981;
+    --color-success-subtle: rgba(16, 185, 129, 0.12);
+
+    --color-warning: #f59e0b;
+    --color-warning-subtle: rgba(245, 158, 11, 0.12);
+
+    --color-spotify: #1ed760;
+    --color-soundcloud: #ff5500;
+    --color-youtube: #ff0000;
+    --color-instagram: #e1306c;
 }
