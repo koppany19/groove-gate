@@ -27,6 +27,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'role',
         'image_path',
+        'google_id',
+        'avatar',
+        'email_verified_at',
     ];
 
     /**
@@ -53,9 +56,6 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    protected $attributes = [
-        'role' => UserRole::AUDIENCE->value,
-    ];
 
     public function artistProfile(): HasOne
     {

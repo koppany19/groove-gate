@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmailVerificationController;
+use App\Http\Controllers\OAuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -75,3 +76,9 @@ Route::middleware(['auth', 'verified', 'role:artist'])
             return 'Tracks - coming soon';
         })->name('tracks.index');
     });
+
+//OAuth routes
+Route::get('/auth/google', [OAuthController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [OAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+Route::get('/auth/select-role', [OAuthController::class, 'showSelectRole'])->middleware('auth')->name('auth.select-role');
+Route::post('/auth/select-role', [OAuthController::class, 'storeRole'])->middleware('auth')->name('auth.store-role');
