@@ -93,3 +93,12 @@ Route::middleware(['auth', 'verified', 'role:artist'])
         Route::get('/bookings', fn() => view('artist.bookings'))->name('bookings');
         Route::get('/inbox', fn() => view('artist.inbox'))->name('inbox');
     });
+
+Route::middleware(['auth', 'verified', 'role:audience'])
+    ->prefix('audience')
+    ->name('audience.')
+    ->group(function () {
+        Route::get('/dashboard', function () { return 'Audience - coming soon'; })->name('dashboard');
+        Route::get('/events', function () { return 'Audience - coming soon'; } )->name('events');
+
+    });
