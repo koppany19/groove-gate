@@ -82,3 +82,14 @@ Route::get('/auth/google', [OAuthController::class, 'redirectToGoogle'])->name('
 Route::get('/auth/google/callback', [OAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 Route::get('/auth/select-role', [OAuthController::class, 'showSelectRole'])->middleware('auth')->name('auth.select-role');
 Route::post('/auth/select-role', [OAuthController::class, 'storeRole'])->middleware('auth')->name('auth.store-role');
+
+// Artist routes
+Route::middleware(['auth', 'verified', 'role:artist'])
+    ->prefix('artist')
+    ->name('artist.')
+    ->group(function () {
+        Route::get('/dashboard', fn() => view('artist.dashboard'))->name('dashboard');
+        Route::get('/profile', fn() => view('artist.profile'))->name('profile');
+        Route::get('/bookings', fn() => view('artist.bookings'))->name('bookings');
+        Route::get('/inbox', fn() => view('artist.inbox'))->name('inbox');
+    });

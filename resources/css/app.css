@@ -23,6 +23,10 @@
     --color-link: #1881CC;
     --color-primary-subtle: rgba(59, 130, 246, 0.12);
 
+    --color-artist: #3b82f6;
+    --color-organiser: #f97316;
+    --color-audience: #10b981;
+
     --color-danger: #ef4444;
     --color-danger-subtle: rgba(239, 68, 68, 0.12);
 
