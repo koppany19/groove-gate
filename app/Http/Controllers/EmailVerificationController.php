@@ -15,8 +15,9 @@ class EmailVerificationController extends Controller
     public function verify(EmailVerificationRequest $request)
     {
         $request->fulfill();
+        $role = auth()->user()->role->value;
 
-        return redirect()->route(auth()->user()->role->value . '.dashboard')->with('success', 'Email verified successfully!');
+        return redirect()->route($role  . '.dashboard')->with('success', 'Email verified successfully!');
     }
 
     public function send(Request $request)

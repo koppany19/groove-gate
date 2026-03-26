@@ -10,12 +10,14 @@
                 <a href="#roles" class="text-base font-semibold text-white hover:text-blue-400 transition-colors">Roles</a>
                 <a href="#events" class="text-base font-semibold text-white hover:text-blue-400 transition-colors">Events</a>
             </div>
+
             <a href="{{ route('login') }}"
                class="text-base font-semibold text-white px-6 py-2.5 rounded-full border border-white hover:bg-white hover:text-black transition-all">
                 Log in
             </a>
+
             <a href="{{ route('register') }}"
-               class="text-base font-semibold text-white px-6 py-2.5 rounded-full bg-(--color-primary) hover:bg-(--color-link) transition-all">
+               class="text-base font-semibold text-white px-6 py-2.5 rounded-full bg-(--color-primary) hover:opacity-90 transition-all">
                 Sign Up
             </a>
         </div>

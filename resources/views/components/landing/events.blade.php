@@ -65,7 +65,7 @@
                            class="w-full block text-center py-2.5 rounded-xl border border-(--color-border)
                                   text-white text-sm font-semibold hover:bg-(--color-primary) hover:border-transparent
                                   transition-all duration-200">
-                            Get Tickets
+                            View Event
                         </a>
                     </div>
 

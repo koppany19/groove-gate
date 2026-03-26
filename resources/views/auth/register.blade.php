@@ -1,204 +1,150 @@
-@php use App\GenreType; @endphp
-<x-layout>
-    <x-form title="Create an account" description="Join GrooveGate today.">
-        <form action="/register" method="POST" class="mt-10 space-y-5"
-              x-data="{ role: '', otherGenre: false }">
-            @csrf
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register – GrooveGate</title>
+    <link rel="icon" type="image/png" href="/images/heroLogo.png">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+    </style>
+</head>
+<body class="bg-(--color-background) text-white min-h-screen antialiased">
 
-            {{-- Alap mezők --}}
-            <x-form.field name="name" label="Name"/>
-            <x-form.field name="email" label="Email" type="email"/>
-            <x-form.field name="password" label="Password" type="password"/>
-            <x-form.field name="password_confirmation" label="Confirm Password" type="password"/>
+<div class="min-h-screen flex selection:bg-blue-500/30" x-data="{ page: 'register' }" id="auth-wrapper">
 
-            {{-- Role választó --}}
-            <div class="space-y-2">
-                <label class="text-sm font-medium text-gray-300">I am a...</label>
-                <div class="grid grid-cols-3 gap-3">
-                    <button type="button" @click="role = 'audience'"
-                            :class="role === 'audience'
-                                ? 'border-white bg-white/10 text-white'
-                                : 'border-gray-700 text-gray-400 hover:border-gray-500'"
-                            class="border rounded-lg px-4 py-3 text-sm font-medium transition-all duration-150">
-                        🎟️ Audience
-                    </button>
-                    <button type="button" @click="role = 'artist'"
-                            :class="role === 'artist'
-                                ? 'border-white bg-white/10 text-white'
-                                : 'border-gray-700 text-gray-400 hover:border-gray-500'"
-                            class="border rounded-lg px-4 py-3 text-sm font-medium transition-all duration-150">
-                        🎵 Artist
-                    </button>
-                    <button type="button" @click="role = 'organiser'"
-                            :class="role === 'organiser'
-                                ? 'border-white bg-white/10 text-white'
-                                : 'border-gray-700 text-gray-400 hover:border-gray-500'"
-                            class="border rounded-lg px-4 py-3 text-sm font-medium transition-all duration-150">
-                        🎪 Organiser
-                    </button>
+    <div class="hidden lg:block w-1/2 flex-shrink-0 sticky top-0 h-screen"
+         :class="page === 'register' ? 'order-1' : 'order-2'">
+
+        <x-auth.panel-image
+            image="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=1200"
+            title="Join The Movement"
+            subtitle="Create your account and start your journey with GrooveGate today.">
+
+            <div class="grid grid-cols-3 gap-5">
+                <div class="rounded-2xl p-5 text-center transition-transform duration-300 hover:-translate-y-1"
+                     style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(12px);">
+                    <div class="text-3xl font-black text-white mb-1 drop-shadow-md">500+</div>
+                    <div class="text-gray-400 text-xs uppercase tracking-widest font-semibold">Artists</div>
                 </div>
-                <input type="hidden" name="role" :value="role">
-                @error('role')
-                <p class="text-red-400 text-sm">{{ $message }}</p>
-                @enderror
+                <div class="rounded-2xl p-5 text-center transition-transform duration-300 hover:-translate-y-1"
+                     style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(12px);">
+                    <div class="text-3xl font-black text-white mb-1 drop-shadow-md">200+</div>
+                    <div class="text-gray-400 text-xs uppercase tracking-widest font-semibold">Events</div>
+                </div>
+                <div class="rounded-2xl p-5 text-center transition-transform duration-300 hover:-translate-y-1"
+                     style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(12px);">
+                    <div class="text-3xl font-black text-white mb-1 drop-shadow-md">50+</div>
+                    <div class="text-gray-400 text-xs uppercase tracking-widest font-semibold">Venues</div>
+                </div>
             </div>
 
-            {{-- Artist mezők --}}
-            <div x-show="role === 'artist'"
-                 x-transition:enter="transition ease-out duration-200"
-                 x-transition:enter-start="opacity-0 -translate-y-2"
-                 x-transition:enter-end="opacity-100 translate-y-0"
-                 class="space-y-5 border border-gray-800 rounded-xl p-5 bg-white/5">
+        </x-auth.panel-image>
 
-                <p class="text-xs font-semibold text-gray-500 uppercase tracking-widest">
-                    Artist Details
+    </div>
+
+    <div class="flex items-center justify-center w-full lg:w-1/2 px-6 py-12 min-h-screen overflow-y-auto relative bg-(--color-background)"
+         :class="page === 'register' ? 'order-2' : 'order-1'"
+    >
+
+        <div class="absolute top-0 right-0 w-[30rem] h-[30rem] rounded-full opacity-20 pointer-events-none mix-blend-screen"
+             style="background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%); filter: blur(100px); transform: translate(30%, -30%);"></div>
+
+        <div class="w-full max-w-md relative z-10 bg-white/[0.02] border border-white/[0.05] p-8 sm:p-10 rounded-[2rem] shadow-2xl backdrop-blur-xl my-auto">
+
+            <div class="flex items-center justify-center gap-3 mb-10 lg:hidden">
+                <img src="{{ asset('images/heroLogo.png') }}" alt="GrooveGate" class="w-10 h-10 drop-shadow-lg">
+                <span class="text-white font-extrabold text-2xl tracking-tight">GrooveGate</span>
+            </div>
+
+            <div class="mb-10 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase mb-6 shadow-sm"
+                     style="background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); color: #93c5fd;">
+                    Get started for free
+                </div>
+                <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-3 tracking-tight leading-tight">
+                    Create your<br>account
+                </h1>
+                <p class="text-gray-400 text-sm">
+                    Already have an account?
+                    <a href="{{ route('login') }}"
+                       class="font-semibold hover:text-white transition-colors duration-200 ml-1"
+                       style="color: var(--color-primary);">
+                        Sign in
+                    </a>
                 </p>
-
-                <x-form.field name="stage_name" label="Stage Name"/>
-
-                {{-- Artist Type --}}
-                <div class="space-y-2">
-                    <label class="text-sm font-medium text-gray-300">Artist Type</label>
-                    <div class="grid grid-cols-2 gap-3">
-                        <label
-                            class="flex items-center gap-3 border border-gray-700 rounded-lg px-4 py-3 cursor-pointer hover:border-gray-500 transition-all">
-                            <input type="radio" name="artist_type" value="live" class="accent-white">
-                            <span class="text-sm text-gray-300">🎸 Live</span>
-                        </label>
-                        <label
-                            class="flex items-center gap-3 border border-gray-700 rounded-lg px-4 py-3 cursor-pointer hover:border-gray-500 transition-all">
-                            <input type="radio" name="artist_type" value="dj" class="accent-white">
-                            <span class="text-sm text-gray-300">🎧 DJ</span>
-                        </label>
-                    </div>
-                    @error('artist_type')
-                    <p class="text-red-400 text-sm">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                {{-- Genres --}}
-                <div class="space-y-2">
-                    <label class="text-sm font-medium text-gray-300">Genres</label>
-                    <div class="grid grid-cols-3 gap-2">
-                        @foreach(GenreType::cases() as $genre)
-                            @if($genre !== GenreType::OTHER)
-                                <label
-                                    class="flex items-center gap-2 text-sm text-gray-400 cursor-pointer hover:text-white transition-colors">
-                                    <input type="checkbox"
-                                           name="genre[]"
-                                           value="{{ $genre->value }}"
-                                           class="accent-white rounded">
-                                    {{ $genre->label() }}
-                                </label>
-                            @endif
-                        @endforeach
-
-                        {{-- Other --}}
-                        <label
-                            class="flex items-center gap-2 text-sm text-gray-400 cursor-pointer hover:text-white transition-colors">
-                            <input type="checkbox"
-                                   name="genre[]"
-                                   value="other"
-                                   class="accent-white rounded"
-                                   @change="otherGenre = $event.target.checked">
-                            Other
-                        </label>
-                    </div>
-
-                    {{-- Custom genre input --}}
-                    <div x-show="otherGenre" x-transition class="mt-2">
-                        <input type="text"
-                               name="genre_other"
-                               class="input w-full"
-                               placeholder="Enter your genre...">
-                    </div>
-
-                    @error('genre')
-                    <p class="text-red-400 text-sm">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                {{-- Price --}}
-                <div class="grid grid-cols-2 gap-3">
-                    <x-form.field name="price_min" label="Price Min (€)" type="number"/>
-                    <x-form.field name="price_max" label="Price Max (€)" type="number"/>
-                </div>
-
-                <x-form.field name="duration" label="Duration (minutes)" type="number"/>
-                <x-form.field name="location" label="Location"/>
-
-                <div class="space-y-2">
-                    <label class="text-sm font-medium text-gray-300">Bio</label>
-                    <textarea name="bio"
-                              class="input w-full h-24 resize-none"
-                              placeholder="Tell us about yourself..."></textarea>
-                </div>
             </div>
 
-            {{-- Organiser mezők --}}
-            <div x-show="role === 'organiser'"
-                 x-transition:enter="transition ease-out duration-200"
-                 x-transition:enter-start="opacity-0 -translate-y-2"
-                 x-transition:enter-end="opacity-100 translate-y-0"
-                 class="space-y-5 border border-gray-800 rounded-xl p-5 bg-white/5">
+            <form action="{{ route('register') }}" method="POST"
+                  class="space-y-6"
+                  x-data="{ role: '' }">
+                @csrf
 
-                <p class="text-xs font-semibold text-gray-500 uppercase tracking-widest">
-                    Organiser Details
-                </p>
-
-                <x-form.field name="company_name" label="Company Name"/>
-                <x-form.field name="phone" label="Phone"/>
-                <x-form.field name="location" label="Location"/>
-
-                <div class="space-y-2">
-                    <label class="text-sm font-medium text-gray-300">Description</label>
-                    <textarea name="description"
-                              class="input w-full h-24 resize-none"
-                              placeholder="Tell us about your organisation..."></textarea>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <x-auth.form.field
+                        label="Name"
+                        name="name"
+                        placeholder="Your name"
+                        :error="$errors->first('name')"
+                    />
+                    <x-auth.form.field
+                        label="Email"
+                        name="email"
+                        type="email"
+                        placeholder="your@email.com"
+                        :error="$errors->first('email')"
+                    />
                 </div>
-            </div>
 
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <x-auth.form.field
+                        label="Password"
+                        name="password"
+                        type="password"
+                        placeholder="Min. 8 chars"
+                        :error="$errors->first('password')"
+                    />
+                    <x-auth.form.field
+                        label="Confirm"
+                        name="password_confirmation"
+                        type="password"
+                        placeholder="••••••••"
+                    />
+                </div>
 
-            <button type="submit"
-                    class="w-full h-11 bg-white text-black font-semibold rounded-lg text-sm
-                           hover:bg-gray-100 transition-colors duration-150 mt-2">
-                Create Account
-            </button>
+                <hr class="border-white/5">
 
-            <p class="text-center text-sm text-gray-500">
-                Already have an account?
-                <a href="/login" class="text-white hover:underline">Login</a>
-            </p>
-        </form>
+                <x-auth.role-selector />
 
-        <div class="flex items-center gap-4 my-6">
-            <div class="flex-1 h-px" style="background: var(--color-border);"></div>
-            <span class="text-gray-500 text-xs">or continue with</span>
-            <div class="flex-1 h-px" style="background: var(--color-border);"></div>
+                <x-auth.artist-fields />
+
+                <x-auth.organiser-fields />
+
+                <button type="submit"
+                        class="w-full py-4 rounded-xl text-white font-bold text-sm tracking-wide
+                               hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/20
+                               transition-all duration-300 ease-out flex items-center justify-center gap-2 mt-6"
+                        style="background: linear-gradient(to right, var(--color-primary), #3b82f6);">
+                    Create Account
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2.5">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </button>
+
+            </form>
+
+            <x-auth.social-auth />
+
         </div>
+    </div>
 
-        <div class="grid grid-cols-2 gap-3">
-            <a href="{{ route('auth.google') }}"
-               class="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium
-              text-gray-300 hover:text-white transition-all duration-200"
-               style="background: var(--color-surface); border: 0.5px solid var(--color-border);">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                </svg>
-                Google
-            </a>
-            <button disabled
-                    class="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium
-                   text-gray-500 cursor-not-allowed opacity-50"
-                    style="background: var(--color-surface); border: 0.5px solid var(--color-border);">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-                Facebook
-            </button>
-        </div>
-    </x-form>
-</x-layout>
+</div>
+
+</body>
+</html>
