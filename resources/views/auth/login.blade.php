@@ -1,57 +1,128 @@
-<x-layout>
-    <x-form title="Welcome back" description="Login to your GrooveGate account.">
-        <form action="/login" method="POST" class="mt-10 space-y-5">
-            @csrf
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login – GrooveGate</title>
+    <link rel="icon" type="image/png" href="/images/heroLogo.png">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="bg-(--color-background) text-white min-h-screen overflow-hidden antialiased">
 
-            <x-form.field name="email" label="Email" type="email" />
-            <x-form.field name="password" label="Password" type="password" />
+<div class="min-h-screen flex selection:bg-blue-500/30">
+    <div class="relative hidden lg:flex flex-col w-1/2 flex-shrink-0">
+        <x-auth.panel-image
+            image="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200"
+            title="Feel The Groove"
+            subtitle="Connecting fans, artists, and organizers for the ultimate festival experience.">
 
-            @error('email')
-            <div class="bg-red-500/10 border border-red-500/30 rounded-lg px-4 py-3">
-                <p class="text-red-400 text-sm">{{ $message }}</p>
+            <div class="rounded-2xl p-6 transition-all duration-300 hover:bg-white/10"
+                 style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(12px);">
+                <p class="text-gray-300 text-sm italic leading-relaxed mb-4">
+                    "GrooveGate completely transformed how we book artists for our festivals. Incredible platform!"
+                </p>
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shadow-lg"
+                         style="background: linear-gradient(135deg, var(--color-primary), #60a5fa);">P</div>
+                    <div>
+                        <p class="text-white text-sm font-semibold tracking-wide">Peter Kovacs</p>
+                        <p class="text-gray-400 text-xs uppercase tracking-wider mt-0.5">Festival Organiser</p>
+                    </div>
+                </div>
             </div>
-            @enderror
 
-            <button type="submit"
-                    class="w-full h-11 bg-white text-black font-semibold rounded-lg text-sm
-                           hover:bg-gray-100 transition-colors duration-150 mt-2">
-                Login
-            </button>
+        </x-auth.panel-image>
+    </div>
 
-            <p class="text-center text-sm text-gray-500">
-                Don't have an account?
-                <a href="/register" class="text-white hover:underline">Register</a>
-            </p>
-        </form>
 
-        <div class="flex items-center gap-4 my-6">
-            <div class="flex-1 h-px" style="background: var(--color-border);"></div>
-            <span class="text-gray-500 text-xs">or continue with</span>
-            <div class="flex-1 h-px" style="background: var(--color-border);"></div>
+    <div class="flex items-center justify-center w-full lg:w-1/2 px-6 py-12 relative bg-(--color-background)">
+
+        <div class="absolute top-1/4 right-0 w-[30rem] h-[30rem] rounded-full opacity-20 pointer-events-none mix-blend-screen"
+             style="background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%); filter: blur(100px); transform: translate(30%, -30%);"></div>
+        <div class="absolute bottom-1/4 left-0 w-[20rem] h-[20rem] rounded-full opacity-10 pointer-events-none mix-blend-screen"
+             style="background: radial-gradient(circle, #8b5cf6 0%, transparent 70%); filter: blur(80px); transform: translate(-30%, 30%);"></div>
+
+        <div class="w-full max-w-md relative z-10 bg-white/[0.02] border border-white/[0.05] p-8 sm:p-10 rounded-[2rem] shadow-2xl backdrop-blur-xl">
+            <div class="flex items-center justify-center gap-3 mb-10 lg:hidden">
+                <img src="{{ asset('images/heroLogo.png') }}" alt="GrooveGate" class="w-10 h-10 drop-shadow-lg">
+                <span class="text-white font-extrabold text-2xl tracking-tight">GrooveGate</span>
+            </div>
+
+            <div class="mb-10 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase mb-6 shadow-sm"
+                     style="background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); color: #93c5fd;">
+                    Welcome back
+                </div>
+                <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-3 tracking-tight leading-tight">
+                    Sign in to<br>your account
+                </h1>
+                <p class="text-gray-400 text-sm">
+                    Don't have an account?
+                    <a href="{{ route('register') }}"
+                       class="font-semibold hover:text-white transition-colors duration-200 ml-1"
+                       style="color: var(--color-primary);">
+                        Sign up for free
+                    </a>
+                </p>
+            </div>
+
+            <form action="{{ route('login') }}" method="POST" class="space-y-5">
+                @csrf
+
+                <x-auth.form.field
+                    label="Email address"
+                    name="email"
+                    type="email"
+                    placeholder="your@email.com"
+                    :error="$errors->first('email')"
+                />
+
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between">
+                        <label class="text-sm font-semibold text-gray-300">Password</label>
+                        <a href="#"
+                           class="text-xs font-medium hover:text-white transition-colors duration-200"
+                           style="color: var(--color-primary);">
+                            Forgot password?
+                        </a>
+                    </div>
+                    <input type="password"
+                           name="password"
+                           placeholder="••••••••"
+                           class="w-full px-5 py-3.5 rounded-xl text-white text-sm outline-none
+                                  transition-all duration-200 placeholder-gray-600 focus:-translate-y-0.5 shadow-sm
+                                  {{ $errors->first('password') ? 'ring-2 ring-red-500/50' : 'focus:ring-2 focus:ring-blue-500/50' }}"
+                           style="background: rgba(0,0,0,0.2); border: 1px solid var(--color-border);">
+                    @error('password')
+                    <p class="text-red-400 text-xs flex items-center gap-1.5 mt-2 font-medium">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                        </svg>
+                        {{ $message }}
+                    </p>
+                    @enderror
+                </div>
+
+                <button type="submit"
+                        class="w-full py-4 rounded-xl text-white font-bold text-sm tracking-wide
+                               hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/20
+                               transition-all duration-300 ease-out flex items-center justify-center gap-2 mt-4"
+                        style="background: linear-gradient(to right, var(--color-primary), #3b82f6);">
+                    Sign in
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2.5" class="transition-transform group-hover:translate-x-1">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </button>
+            </form>
+
+            <x-auth.social-auth />
+
         </div>
+    </div>
 
-        <div class="grid grid-cols-2 gap-3">
-            <a href="{{ route('auth.google') }}"
-               class="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium
-              text-gray-300 hover:text-white transition-all duration-200"
-               style="background: var(--color-surface); border: 0.5px solid var(--color-border);">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                </svg>
-                Google
-            </a>
-            <button disabled
-                    class="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium
-                   text-gray-500 cursor-not-allowed opacity-50"
-                    style="background: var(--color-surface); border: 0.5px solid var(--color-border);">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-                Facebook
-            </button>
-        </div>
-    </x-form>
-</x-layout>
+</div>
+
+</body>
+</html>

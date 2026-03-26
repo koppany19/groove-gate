@@ -24,10 +24,10 @@ class OAuthController extends Controller
             $user = User::updateOrCreate(
                 ['google_id' => $googleUser->id],
                 [
-                    'name'              => $googleUser->name,
-                    'email'             => $googleUser->email,
-                    'avatar'            => $googleUser->avatar,
-                    'password'          => null,
+                    'name' => $googleUser->name,
+                    'email' => $googleUser->email,
+                    'avatar'=> $googleUser->avatar,
+                    'password' => null,
                     'email_verified_at' => now(),
                 ]
             );
