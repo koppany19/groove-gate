@@ -26,7 +26,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'role',
-        'image_path',
         'google_id',
         'avatar',
         'email_verified_at',
@@ -56,6 +55,20 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    public function isArtist(): bool
+    {
+        return $this->role === UserRole::ARTIST;
+    }
+
+    public function isOrganiser(): bool
+    {
+        return $this->role === UserRole::ORGANISER;
+    }
+
+    public function isAudience(): bool
+    {
+        return $this->role === UserRole::AUDIENCE;
+    }
 
     public function artistProfile(): HasOne
     {
