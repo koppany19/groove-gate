@@ -1,3 +1,3 @@
-<div>
-    <!-- Simplicity is an acquired taste. - Katharine Gerould -->
-</div>
+<x-layout>
+    <h1>Welcome Artist Inbox</h1>
+</x-layout>

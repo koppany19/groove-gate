@@ -1,3 +1,3 @@
-<div>
-    <!-- Because you are alive, everything is possible. - Thich Nhat Hanh -->
-</div>
+<x-layout>
+    <h1>Welcome Artist Profile</h1>
+</x-layout>
