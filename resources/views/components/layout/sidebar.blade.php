@@ -42,8 +42,11 @@
             <x-layout.nav-item route="organiser.artists" icon="user">
                 Artists
             </x-layout.nav-item>
-            <x-layout.nav-item route="organiser.settings" icon="settings">
-                Settings
+            <x-layout.nav-item route="organiser.inbox" icon="inbox">
+                Inbox
+            </x-layout.nav-item>
+            <x-layout.nav-item route="organiser.profile" icon="settings">
+                Profile
             </x-layout.nav-item>
 
         @else
