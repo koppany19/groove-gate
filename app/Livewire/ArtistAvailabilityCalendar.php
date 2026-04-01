@@ -8,26 +8,20 @@ use Carbon\Carbon;
 
 class ArtistAvailabilityCalendar extends Component
 {
-    // 1. Publikus property-k – ezeket látja a Blade template
     public int $year;
     public int $month;
     public array $unavailableDates = [];
 
-    // 2. mount() – egyszer fut le, amikor a komponens betöltődik
-    // Olyan mint egy __construct() de Livewire-ben
     public function mount(): void
     {
-        $this->year  = now()->year;
+        $this->year = now()->year;
         $this->month = now()->month;
         $this->loadDates();
     }
 
-    // 3. loadDates() – betölti az adott hónap foglalt napjait
     public function loadDates(): void
     {
-        $this->unavailableDates = ArtistAvailability::where('artist_profile_id',
-            auth()->user()->artistProfile->id
-        )
+        $this->unavailableDates = ArtistAvailability::where('artist_profile_id', auth()->user()->artistProfile->id)
             ->whereYear('date', $this->year)
             ->whereMonth('date', $this->month)
             ->where('is_available', false)
@@ -36,9 +30,6 @@ class ArtistAvailabilityCalendar extends Component
             ->toArray();
     }
 
-    // 4. toggleDate() – kattintáskor hívódik meg
-    // Ha a nap foglalt → felszabadítja
-    // Ha a nap szabad → foglalttá teszi
     public function toggleDate(string $date): void
     {
         $profile = auth()->user()->artistProfile;
@@ -60,7 +51,6 @@ class ArtistAvailabilityCalendar extends Component
         $this->loadDates();
     }
 
-    // 5. previousMonth() és nextMonth() – navigáció
     public function previousMonth(): void
     {
         if ($this->month === 1) {
@@ -83,18 +73,34 @@ class ArtistAvailabilityCalendar extends Component
         $this->loadDates();
     }
 
-    // 6. render() – minden frissítéskor lefut
     public function render()
     {
-        // Kiszámítja az adott hónap napjait
-        $firstDay    = Carbon::create($this->year, $this->month, 1);
+        $firstDay = Carbon::create($this->year, $this->month, 1);
         $daysInMonth = $firstDay->daysInMonth;
-        $startDay    = $firstDay->dayOfWeek; // 0=vasárnap, 1=hétfő...
+
+        $startDay = $firstDay->dayOfWeek;
+        $startDay = $startDay === 0 ? 6 : $startDay - 1;
+
+        $today = now()->startOfDay();
+
+        $days = [];
+        for ($day = 1; $day <= $daysInMonth; $day++) {
+            $dateObj = Carbon::create($this->year, $this->month, $day);
+            $dateString = $dateObj->format('Y-m-d');
+
+            $days[] = [
+                'number'        => $day,
+                'date'          => $dateString,
+                'isUnavailable' => in_array($dateString, $this->unavailableDates),
+                'isPast'        => $dateObj->isPast() && !$dateObj->isSameDay($today),
+                'isToday'       => $dateObj->isSameDay($today),
+            ];
+        }
 
         return view('livewire.artist-availability-calendar', [
-            'firstDay'    => $firstDay,
-            'daysInMonth' => $daysInMonth,
-            'startDay'    => $startDay,
+            'monthName' => $firstDay->format('F Y'),
+            'startDay'  => $startDay,
+            'days'      => $days,
         ]);
     }
 }

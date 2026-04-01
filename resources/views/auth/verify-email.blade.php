@@ -1,5 +1,5 @@
 <x-layout>
-    <x-form title="Verify your email" description="Please verify your email address to continue.">
+    <x-auth.form title="Verify your email" description="Please verify your email address to continue.">
         <div class="mt-10 space-y-5">
 
             <div class="bg-zinc-900 border border-zinc-700 rounded-xl p-5 text-center space-y-3">
@@ -35,5 +35,5 @@
             </form>
 
         </div>
-    </x-form>
+    </x-auth.form>
 </x-layout>

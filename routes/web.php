@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\EmailVerificationController;
-use App\Http\Controllers\OAuthController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\Auth\OAuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {

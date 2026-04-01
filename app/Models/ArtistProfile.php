@@ -15,7 +15,6 @@ class ArtistProfile extends Model
         'user_id',
         'stage_name',
         'bio',
-        'press_text',
         'genre',
         'genre_other',
         'price_min',

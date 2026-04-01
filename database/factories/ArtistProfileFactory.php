@@ -24,7 +24,6 @@ class ArtistProfileFactory extends Factory
             'user_id' => User::factory()->artist(),
             'stage_name' => fake()->name(),
             'bio' => fake()->paragraph(),
-            'press_text' => fake()->paragraph(10),
             'genre' => fake()->randomElements(array_column(GenreType::cases(), 'value'), fake()->numberBetween(1, 4)),
             'genre_other' => null,
             'artist_type' => fake()->randomElement(ArtistTypeEnum::cases()),
