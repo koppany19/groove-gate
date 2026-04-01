@@ -24,8 +24,12 @@ return new class extends Migration
             $table->unsignedInteger('price_max')->nullable();
             $table->unsignedInteger('duration')->nullable();
             $table->string('location')->nullable();
-            $table->string('profile_image')->nullable();
+            $table->string('cover_image')->nullable();
             $table->boolean('is_available')->default(true);
+            $table->string('spotify_url')->nullable();
+            $table->string('soundcloud_url')->nullable();
+            $table->string('youtube_url')->nullable();
+            $table->string('instagram_url')->nullable();
             $table->timestamps();
         });
     }

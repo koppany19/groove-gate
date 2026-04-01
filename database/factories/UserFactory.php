@@ -24,11 +24,12 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $seed = fake()->word() . fake()->numberBetween(1, 9999);
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'role' => fake()->randomElement(UserRole::cases()),
-            'avatar' => fake()->imageUrl(400, 400, 'people'),
+            'avatar' => 'https://picsum.photos/seed/' . $seed . '/400/400',
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),

@@ -21,9 +21,13 @@ class ArtistProfile extends Model
         'price_max',
         'duration',
         'location',
-        'profile_image',
+        'cover_image',
         'artist_type',
         'is_available',
+        'spotify_url',
+        'soundcloud_url',
+        'youtube_url',
+        'instagram_url',
     ];
 
     protected $casts = [
@@ -63,7 +67,7 @@ class ArtistProfile extends Model
             $this->genre,
             $this->price_min,
             $this->location,
-            $this->profile_image,
+            $this->cover_image,
         ];
 
         $filled = collect($fields)->filter()->count();
