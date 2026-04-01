@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('stage_name')->nullable();
             $table->text('bio')->nullable();
-            $table->text('press_text')->nullable();
             $table->json('genre')->nullable();
             $table->string('genre_other')->nullable();
             $table->string('artist_type')->default(ArtistTypeEnum::LIVE->value);

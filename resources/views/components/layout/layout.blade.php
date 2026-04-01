@@ -10,7 +10,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
-    <body class="bg-(--color-background) text-white min-h-screen">
+    <body class="bg-[#060913] text-white min-h-screen">
 
         <div class="flex min-h-screen">
 
