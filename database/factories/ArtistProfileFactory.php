@@ -19,7 +19,7 @@ class ArtistProfileFactory extends Factory
      */
     public function definition(): array
     {
-
+        $seed = fake()->word() . fake()->numberBetween(1, 9999);
         return [
             'user_id' => User::factory()->artist(),
             'stage_name' => fake()->name(),
@@ -31,8 +31,12 @@ class ArtistProfileFactory extends Factory
             'price_max' => fake()->numberBetween(1000, 3000),
             'duration' => fake()->randomElement([30, 45, 60, 90, 120]),
             'location' => fake()->city(),
-            'profile_image' => fake()->imageUrl(800, 800, 'band'),
+            'cover_image'    => 'https://picsum.photos/seed/' . $seed . 'cover/1920/400',
             'is_available' => fake()->boolean(80),
+            'spotify_url'    => null,
+            'soundcloud_url' => null,
+            'youtube_url'    => null,
+            'instagram_url'  => null,
         ];
     }
 }

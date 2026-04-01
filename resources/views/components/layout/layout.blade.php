@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Security-Policy"
-              content="img-src 'self' https://lh3.googleusercontent.com data:;">
+              content="img-src 'self' https://*.googleusercontent.com https://picsum.photos https://*.picsum.photos data: blob:;">
         <title>GrooveGate</title>
         <link rel="icon" type="image/png" href="/images/heroLogo.png">
         @vite(['resources/css/app.css', 'resources/js/app.js'])

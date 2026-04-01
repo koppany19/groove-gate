@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\ArtistAvailability;
 use App\Models\ArtistProfile;
+use App\Models\ArtistTrack;
 use App\Models\OrganiserProfile;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,29 +19,44 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $organiser = User::factory()->organiser()->create([
-            'name' => 'Demo Organiser',
+        User::factory()->organiser()->create([
+            'name'  => 'Demo Organiser',
             'email' => 'organiser@demo.com',
-            'password' => bcrypt('password')
-        ]);
-        OrganiserProfile::factory()->create(['user_id' => $organiser->id]);
+            'password' => bcrypt('password'),
+        ])->organiserProfile()->create(
+            OrganiserProfile::factory()->definition()
+        );
 
-        $artist = User::factory()->artist()->create([
-            'name' => 'Demo Artist',
+        User::factory()->artist()->create([
+            'name'  => 'Demo Artist',
             'email' => 'artist@demo.com',
-            'password' => bcrypt('password')
-        ]);
-        ArtistProfile::factory()->create(['user_id' => $artist->id]);
+            'password' => bcrypt('password'),
+        ])->artistProfile()->create(
+            ArtistProfile::factory()->definition()
+        )->each(function ($profile) {
+            ArtistTrack::factory(3)->create(['artist_profile_id' => $profile->id]);
+            ArtistAvailability::factory(5)->create(['artist_profile_id' => $profile->id]);
+        });
 
-       User::factory()->audience()->create([
-            'name' => 'Demo Audience',
+        User::factory()->audience()->create([
+            'name'  => 'Demo Audience',
             'email' => 'audience@demo.com',
-            'password' => bcrypt('password')
-       ]);
+            'password' => bcrypt('password'),
+        ]);
 
 
-       User::factory()->audience()->count(20)->create();
-       User::factory()->artist()->count(5)->has(ArtistProfile::factory())->create();
-       User::factory()->artist()->count(2)->has(OrganiserProfile::factory())->create();
+        User::factory()->count(2)->organiser()
+            ->has(OrganiserProfile::factory())
+            ->create();
+
+        User::factory()->count(10)->artist()
+            ->has(
+                ArtistProfile::factory()
+                    ->has(ArtistTrack::factory()->count(3), 'tracks')
+                    ->has(ArtistAvailability::factory()->count(5), 'availability')
+            )
+            ->create();
+
+        User::factory()->count(20)->audience()->create();
     }
 }
