@@ -22,7 +22,7 @@
             <x-layout.nav-item route="artist.dashboard" icon="dashboard">
                 Dashboard
             </x-layout.nav-item>
-            <x-layout.nav-item route="artist.profile" icon="user">
+            <x-layout.nav-item route="artist.profile.show" icon="user">
                 Profile
             </x-layout.nav-item>
             <x-layout.nav-item route="artist.bookings" icon="bookings">
