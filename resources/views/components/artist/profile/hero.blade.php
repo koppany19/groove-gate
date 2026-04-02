@@ -2,7 +2,9 @@
 
 <div class="relative w-full h-[450px] bg-cover bg-center">
     @if($profile->cover_image)
-        <img src="{{ $profile->cover_image }}"
+        <img src="{{ str_starts_with($profile->cover_image, 'http')
+                    ? $profile->cover_image
+                    : Storage::url($profile->cover_image) }}"
              alt="Cover"
              class="absolute inset-0 w-full h-full object-cover">
     @else
@@ -35,7 +37,9 @@
                             border-4 border-(--artist-background) bg-[#151E2D]
                             flex items-center justify-center shadow-2xl relative z-10">
                     @if($user->avatar)
-                        <img src="{{ $user->avatar }}"
+                        <img src="{{ str_starts_with($user->avatar, 'http')
+                                    ? $user->avatar
+                                    : Storage::url($user->avatar) }}"
                              alt="{{ $profile->stage_name ?? $user->name }}"
                              class="w-full h-full object-cover">
                     @else

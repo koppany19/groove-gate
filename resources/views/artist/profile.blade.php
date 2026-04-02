@@ -1,8 +1,4 @@
 <x-layout>
-    @php
-        $user = auth()->user();
-        $profile = $user->artistProfile;
-    @endphp
 
     <div class="min-h-screen bg-(--artist-background) text-white -m-8">
         <x-artist.profile.hero :user="$user" :profile="$profile" />
