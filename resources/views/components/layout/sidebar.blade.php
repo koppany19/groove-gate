@@ -1,4 +1,7 @@
-@php $user = auth()->user(); @endphp
+@php
+    use Illuminate\Support\Facades\Storage;
+    $user = auth()->user();
+@endphp
 
 <aside class="w-56 flex-shrink-0 flex flex-col sticky top-0 h-screen bg-(--color-surface) border-r border-(--color-border)">
 
@@ -63,15 +66,17 @@
     <div class="px-4 py-4 border-t border-(--color-border)">
         <div class="flex items-center gap-3">
             @if($user->avatar)
-                <img src="{{ $user->avatar }}"
+                <img src="{{ str_starts_with($user->avatar, 'http')
+                    ? $user->avatar
+                    : Storage::url($user->avatar) }}"
                      alt="{{ $user->name }}"
                      class="w-8 h-8 rounded-full object-cover flex-shrink-0
-                            ring-2 ring-(--color-primary)">
+                ring-2 ring-(--color-primary)">
             @else
                 <div class="w-8 h-8 rounded-full flex items-center justify-center
-                            text-xs font-bold flex-shrink-0
-                            bg-blue-500/15 ring-2 ring-(--color-primary)
-                            text-(--color-primary)">
+                text-xs font-bold flex-shrink-0
+                bg-blue-500/15 ring-2 ring-(--color-primary)
+                text-(--color-primary)">
                     {{ strtoupper(substr($user->name, 0, 1)) }}
                 </div>
             @endif
