@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\ArtistAvailability;
 use App\Models\ArtistProfile;
 use App\Models\ArtistTrack;
+use App\Models\Event;
 use App\Models\OrganiserProfile;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -19,35 +20,51 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->organiser()->create([
-            'name'  => 'Demo Organiser',
-            'email' => 'organiser@demo.com',
+        $demoOrganiser = User::factory()->organiser()->create([
+            'name'     => 'Demo Organiser',
+            'email'    => 'organiser@demo.com',
             'password' => bcrypt('password'),
-        ])->organiserProfile()->create(
-            OrganiserProfile::factory()->definition()
-        );
+        ]);
 
-        User::factory()->artist()->create([
-            'name'  => 'Demo Artist',
-            'email' => 'artist@demo.com',
+        $demoOrganiserProfile = OrganiserProfile::factory()
+            ->create(['user_id' => $demoOrganiser->id]);
+
+        Event::factory()->count(3)->create([
+            'organiser_profile_id' => $demoOrganiserProfile->id,
+        ]);
+
+
+
+        $demoArtist = User::factory()->artist()->create([
+            'name'     => 'Demo Artist',
+            'email'    => 'artist@demo.com',
             'password' => bcrypt('password'),
-        ])->artistProfile()->create(
-            ArtistProfile::factory()->definition()
-        )->each(function ($profile) {
-            ArtistTrack::factory(3)->create(['artist_profile_id' => $profile->id]);
-            ArtistAvailability::factory(5)->create(['artist_profile_id' => $profile->id]);
-        });
+        ]);
+
+        $demoArtistProfile = ArtistProfile::factory()
+            ->create(['user_id' => $demoArtist->id]);
+
+        ArtistTrack::factory(3)->create(['artist_profile_id' => $demoArtistProfile->id]);
+        ArtistAvailability::factory(5)->create(['artist_profile_id' => $demoArtistProfile->id]);
+
+
 
         User::factory()->audience()->create([
-            'name'  => 'Demo Audience',
-            'email' => 'audience@demo.com',
+            'name'     => 'Demo Audience',
+            'email'    => 'audience@demo.com',
             'password' => bcrypt('password'),
         ]);
 
 
+
+
         User::factory()->count(2)->organiser()
-            ->has(OrganiserProfile::factory())
+            ->has(
+                OrganiserProfile::factory()
+                    ->has(Event::factory()->count(3))
+            )
             ->create();
+
 
         User::factory()->count(10)->artist()
             ->has(
@@ -57,6 +74,7 @@ class DatabaseSeeder extends Seeder
             )
             ->create();
 
+        fake()->unique(true);
         User::factory()->count(20)->audience()->create();
     }
 }

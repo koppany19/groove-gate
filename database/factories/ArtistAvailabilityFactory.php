@@ -20,7 +20,7 @@ class ArtistAvailabilityFactory extends Factory
     {
         return [
             'artist_profile_id' => ArtistProfile::factory(),
-            'date'              => fake()->dateTimeBetween('now', '+3 months')->format('Y-m-d'),
+            'date'              => fake()->unique()->dateTimeBetween('now', '+3 months')->format('Y-m-d'),
             'is_available'      => false,
         ];
     }
