@@ -13,6 +13,7 @@
     --color-surface: #13151c;
     --color-surface-2: #151C26;
     --color-border: #2a2d38;
+    --color-card: #121A27;
 
     --artist-background: #060913;
     --color-edit-background: #121A27;
@@ -43,4 +44,28 @@
     --color-soundcloud: #ff5500;
     --color-youtube: #ff0000;
     --color-instagram: #e1306c;
+}
+
+@layer components {
+    .input-field {
+        @apply w-full px-4 py-3 rounded-xl text-white text-sm outline-none
+        transition-all duration-200 placeholder-gray-600
+        bg-white/5 border border-white/10;
+        box-shadow: 0 0 0 0px rgba(59, 130, 246, 0);
+        transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    .input-field:focus {
+        @apply border-blue-500/50 bg-white/8;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .input-field:hover:not(:focus) {
+        @apply border-white/20;
+    }
+
+    .section-card {
+        @apply bg-(--color-card) border border-white/5 rounded-3xl p-8 shadow-xl;
+        background: linear-gradient(135deg, rgba(18, 26, 39, 1) 0%, rgba(15, 20, 30, 1) 100%);
+    }
 }
