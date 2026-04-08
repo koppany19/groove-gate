@@ -39,7 +39,7 @@
             <x-layout.nav-item route="organiser.dashboard" icon="dashboard">
                 Dashboard
             </x-layout.nav-item>
-            <x-layout.nav-item route="organiser.events" icon="events">
+            <x-layout.nav-item route="organiser.events.index" icon="events">
                 Events
             </x-layout.nav-item>
             <x-layout.nav-item route="organiser.artists" icon="user">

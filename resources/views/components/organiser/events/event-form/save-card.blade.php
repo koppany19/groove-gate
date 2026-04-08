@@ -1,0 +1,63 @@
+@props(['event' => null, 'label' => 'Save Changes'])
+
+<div class="bg-(--color-card) border border-white/5 rounded-3xl p-6 shadow-xl sticky top-6">
+
+    @if($event?->status)
+    <div class="flex items-center justify-between mb-5 pb-5 border-b border-white/5">
+        <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full
+                @if($event->status->color() === 'green') bg-green-400
+                @elseif($event->status->color() === 'red') bg-red-400
+                @else bg-gray-400
+                @endif
+            "></div>
+            <span class="text-xs font-semibold text-gray-400">
+                {{ $event->status->label() }}
+            </span>
+        </div>
+        @if($event->updated_at)
+            <span class="text-xs text-gray-600" title="{{ $event->updated_at->format('M d, Y H:i') }}">
+                Saved {{ $event->updated_at->diffForHumans() }}
+            </span>
+        @endif
+    </div>
+    @endif
+
+    <div class="flex items-center gap-3 mb-5">
+        <div class="w-8 h-8 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="#3b82f6" stroke-width="2">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                <polyline points="17 21 17 13 7 13 7 21"/>
+                <polyline points="7 3 7 8 15 8"/>
+            </svg>
+        </div>
+        <div>
+            <p class="text-white font-semibold text-sm">{{ $label }}</p>
+            <p class="text-gray-500 text-xs">All changes will be applied</p>
+        </div>
+    </div>
+
+    <button type="submit"
+            class="w-full py-3.5 rounded-2xl text-white font-bold text-sm mb-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400
+                   active:scale-[0.98] transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+            <polyline points="17 21 17 13 7 13 7 21"/>
+            <polyline points="7 3 7 8 15 8"/>
+        </svg>
+        {{ $label }}
+    </button>
+
+    <a href="{{ route('organiser.events.index') }}"
+       class="w-full py-3 rounded-2xl text-gray-400 font-medium text-sm
+              border border-white/10 hover:border-white/20 hover:text-white
+              transition-all flex items-center justify-center gap-2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+        Cancel
+    </a>
+</div>
