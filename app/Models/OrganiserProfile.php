@@ -17,6 +17,7 @@ class OrganiserProfile extends Model
         'description',
         'phone',
         'location',
+        'cover_image',
     ];
 
     public function user(): BelongsTo

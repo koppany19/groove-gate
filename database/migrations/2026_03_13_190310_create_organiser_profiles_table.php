@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('phone')->nullable();
             $table->string('location')->nullable();
+            $table->string('cover_image')->nullable();
             $table->timestamps();
         });
     }
