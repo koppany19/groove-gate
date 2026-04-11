@@ -18,12 +18,14 @@ class OrganiserProfileFactory extends Factory
      */
     public function definition(): array
     {
+        $seed = fake()->word() . fake()->numberBetween(1, 9999);
         return [
             'user_id' => User::factory()->organiser(),
             'company_name' => fake()->company(),
             'description' => fake()->paragraph(),
             'phone' => fake()->phoneNumber(),
-            'location' => fake()->city()
+            'location' => fake()->city(),
+            'cover_image'    => 'https://picsum.photos/seed/' . $seed . 'cover/1920/400',
         ];
     }
 }

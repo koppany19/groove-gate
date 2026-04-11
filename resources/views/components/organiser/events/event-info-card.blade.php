@@ -96,4 +96,46 @@
             </div>
         </div>
     </div>
+
+    {{-- Location kártya --}}
+    <div class="bg-(--color-card) border border-white/5 rounded-3xl overflow-hidden shadow-xl">
+        <div class="px-6 pt-6 pb-4 border-b border-white/5">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-white font-bold text-sm">Location</p>
+                    <p class="text-gray-500 text-xs">Event venue</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="px-6 py-5">
+            <p class="text-white font-semibold mb-4">{{ $event->location }}</p>
+
+            <a href="https://www.google.com/maps/search/{{ urlencode($event->location) }}"
+               target="_blank"
+               class="flex items-center justify-center gap-2 w-full py-3 rounded-xl
+                  text-sm font-semibold text-purple-300
+                  bg-purple-500/10 border border-purple-500/20
+                  hover:bg-purple-500/20 transition-all">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                </svg>
+                View on Google Maps
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15 3 21 3 21 9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+            </a>
+        </div>
+    </div>
 </div>
