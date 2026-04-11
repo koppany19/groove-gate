@@ -5,6 +5,7 @@ use App\Http\Controllers\Artist\TrackController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\OAuthController;
+use App\Http\Controllers\Organiser\ArtistBrowseController;
 use App\Http\Controllers\Organiser\EventController;
 
 use Illuminate\Support\Facades\Route;
@@ -53,7 +54,9 @@ Route::middleware(['auth', 'verified', 'role:organiser'])
         Route::put('/profile', [App\Http\Controllers\Organiser\ProfileController::class, 'update'])->name('profile.update');
 
         Route::get('/inbox', fn() => view('organiser.inbox'))->name('inbox');
-        Route::get('/artists', fn() => view('organiser.artists'))->name('artists');
+
+        Route::get('/artists', [ArtistBrowseController::class, 'index'])->name('artists.index');
+        Route::get('/artists/{id}', [ArtistBrowseController::class, 'show'])->name('artists.show');
 
         Route::resource('events', EventController::class);
         Route::patch('/events/{event}/publish', [EventController::class, 'publish'])->name('events.publish');
