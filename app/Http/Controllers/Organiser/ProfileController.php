@@ -47,7 +47,6 @@ class ProfileController extends Controller
             $validated['cover_image'] = $request->file('cover_image')->store('cover_images', 'public');
         }
 
-        unset($validated['avatar'], $validated['cover_image']);
         $profile->update($validated);
 
         return redirect()->route('organiser.profile')->with('success', 'Profile updated successfully.');

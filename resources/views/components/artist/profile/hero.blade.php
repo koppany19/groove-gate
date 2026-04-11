@@ -2,9 +2,7 @@
 
 <div class="relative w-full h-[450px] bg-cover bg-center">
     @if($profile->cover_image)
-        <img src="{{ str_starts_with($profile->cover_image, 'http')
-                    ? $profile->cover_image
-                    : Storage::url($profile->cover_image) }}"
+        <img src="{{ str_starts_with($profile->cover_image, 'http') ? $profile->cover_image : Storage::url($profile->cover_image) }}"
              alt="Cover"
              class="absolute inset-0 w-full h-full object-cover">
     @else
