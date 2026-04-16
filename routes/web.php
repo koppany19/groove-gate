@@ -56,7 +56,7 @@ Route::middleware(['auth', 'verified', 'role:organiser'])
         Route::get('/inbox', fn() => view('organiser.inbox'))->name('inbox');
 
         Route::get('/artists', [ArtistBrowseController::class, 'index'])->name('artists.index');
-        Route::get('/artists/{id}', [ArtistBrowseController::class, 'show'])->name('artists.show');
+        Route::get('/artists/{artist}', [ArtistBrowseController::class, 'show'])->name('artists.show');
 
         Route::resource('events', EventController::class);
         Route::patch('/events/{event}/publish', [EventController::class, 'publish'])->name('events.publish');
