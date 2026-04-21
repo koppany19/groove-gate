@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class OrganiserProfile extends Model
 {
@@ -28,5 +29,10 @@ class OrganiserProfile extends Model
     public function events(): HasMany
     {
         return $this->hasMany(Event::class);
+    }
+
+    public function bookings(): HasManyThrough
+    {
+        return $this->hasManyThrough(Booking::class, Event::class, 'organiser_profile_id',  'event_id', 'id', 'id');
     }
 }

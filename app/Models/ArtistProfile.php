@@ -79,4 +79,9 @@ class ArtistProfile extends Model
 
         return (int) ($filled / $total * 100);
     }
+
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

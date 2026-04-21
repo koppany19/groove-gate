@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\BookingStatus;
 use App\EventStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Event extends Model
 {
@@ -44,5 +47,14 @@ class Event extends Model
         return $this->belongsTo(OrganiserProfile::class);
     }
 
+    public function booking(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
+
+    public function confirmedBookings(): HasMany
+    {
+        return $this->hasMany(Booking::class)->where('status', '=', BookingStatus::ACCEPTED);
+    }
 
 }
