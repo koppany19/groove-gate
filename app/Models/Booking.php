@@ -18,11 +18,15 @@ class Booking extends Model
         'status',
         'fee',
         'message',
+        'performance_date',
+        'duration',
     ];
 
     protected $casts = [
         'fee' => 'decimal:2',
         'status' => BookingStatus::class,
+        'performance_date' => 'date',
+        'duration' => 'integer',
     ];
 
     public function event(): BelongsTo

@@ -26,6 +26,8 @@ class BookingFactory extends Factory
             'status' => BookingStatus::PENDING,
             'fee' => $this->faker->randomFloat(2, 100, 5000),
             'message' => $this->faker->optional(0.7)->paragraph(),
+            'performance_date' => $this->faker->date(),
+            'duration' => $this->faker->randomFloat(2, 30, 120),
         ];
     }
 

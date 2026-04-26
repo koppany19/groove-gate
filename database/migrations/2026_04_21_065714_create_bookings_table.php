@@ -20,6 +20,8 @@ return new class extends Migration
             $table->decimal('fee', 10, 2)->nullable();
             $table->string('message')->nullable();
             $table->string('status')->default(BookingStatus::PENDING->value);
+            $table->date('performance_date')->nullable();
+            $table->unsignedInteger('duration')->nullable();
             $table->timestamps();
 
             $table->unique(['event_id', 'artist_profile_id']);

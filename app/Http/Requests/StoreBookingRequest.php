@@ -12,7 +12,7 @@ class StoreBookingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->isOrganiser();
     }
 
     /**
@@ -27,6 +27,8 @@ class StoreBookingRequest extends FormRequest
             'artist_profile_id' => 'required|exists:artist_profiles,id',
             'fee' => 'nullable|numeric|min:0',
             'message' => 'nullable|string|max:1000',
+            'performance_date' => 'date',
+            'duration' => 'nullable|integer|min:0',
         ];
     }
 }

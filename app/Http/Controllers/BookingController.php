@@ -31,7 +31,7 @@ class BookingController extends Controller
 
     public function accept(Booking $booking)
     {
-        if($booking->artistProfile()->user_id !== auth()->id()) {
+        if($booking->artistProfile->user_id !== auth()->id()) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -41,7 +41,7 @@ class BookingController extends Controller
 
     public function decline(Booking $booking)
     {
-        if($booking->artistProfile()->user_id !== auth()->id()) {
+        if($booking->artistProfile->user_id !== auth()->id()) {
             abort(403, 'Unauthorized action.');
         }
 

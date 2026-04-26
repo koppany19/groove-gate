@@ -5,6 +5,7 @@ use App\Http\Controllers\Artist\TrackController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\OAuthController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Organiser\ArtistBrowseController;
 use App\Http\Controllers\Organiser\EventController;
 
@@ -61,6 +62,8 @@ Route::middleware(['auth', 'verified', 'role:organiser'])
         Route::resource('events', EventController::class);
         Route::patch('/events/{event}/publish', [EventController::class, 'publish'])->name('events.publish');
         Route::patch('/events/{event}/cancel', [EventController::class, 'cancel'])->name('events.cancel');
+
+        Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
     });
 
 // Audience routes
@@ -85,4 +88,7 @@ Route::middleware(['auth', 'verified', 'role:artist'])
         Route::get('/inbox', fn() => view('artist.inbox'))->name('inbox');
         Route::post('/tracks', [TrackController::class, 'store'])->name('tracks.store');
         Route::delete('/tracks/{track}', [TrackController::class, 'destroy'])->name('tracks.destroy');
+
+        Route::patch('/bookings/{booking}/accept', [BookingController::class, 'accept'])->name('bookings.accept');
+        Route::patch('/bookings/{booking}/decline', [BookingController::class, 'decline'])->name('bookings.decline');
     });

@@ -47,7 +47,7 @@ class Event extends Model
         return $this->belongsTo(OrganiserProfile::class);
     }
 
-    public function booking(): HasMany
+    public function bookings(): HasMany
     {
         return $this->hasMany(Booking::class);
     }
