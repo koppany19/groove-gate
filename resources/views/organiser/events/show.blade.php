@@ -99,21 +99,65 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col items-center justify-center py-10 rounded-2xl border border-dashed border-white/10 bg-white/[0.02]">
-                        <div class="w-14 h-14 rounded-2xl bg-orange-500/10 border border-orange-500/20
-                                    flex items-center justify-center mb-4">
-                            <svg width="24" height="24" fill="none" stroke="#f97316"
-                                 stroke-width="1.5" viewBox="0 0 24 24">
-                                <path d="M9 18V5l12-2v13"/>
-                                <circle cx="6" cy="18" r="3"/>
-                                <circle cx="18" cy="16" r="3"/>
-                            </svg>
+                    @if($event->confirmedBookings->isEmpty())
+                        <div class="flex flex-col items-center justify-center py-10 rounded-2xl border border-dashed border-white/10 bg-white/[0.02]">
+                            <div class="w-14 h-14 rounded-2xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center mb-4">
+                                <svg width="24" height="24" fill="none" stroke="#f97316"
+                                     stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path d="M9 18V5l12-2v13"/>
+                                    <circle cx="6" cy="18" r="3"/>
+                                    <circle cx="18" cy="16" r="3"/>
+                                </svg>
+                            </div>
+                            <p class="text-gray-400 text-sm font-medium">No artists booked yet</p>
+                            <p class="text-gray-600 text-xs mt-1">Accepted bookings will appear here</p>
                         </div>
-                        <p class="text-gray-400 text-sm font-medium">No artists booked yet</p>
-                        <p class="text-gray-600 text-xs mt-1">Accepted bookings will appear here</p>
-                    </div>
-                </div>
+                    @else
+                        <div class="space-y-3">
+                            @foreach($event->confirmedBookings as $booking)
+                                <div class="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
+                                    <div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-white/10 flex items-center justify-center">
+                                        @if($booking->artistProfile->user->avatar)
+                                            <img src="{{ str_starts_with($booking->artistProfile->user->avatar, 'http')
+                                        ? $booking->artistProfile->user->avatar
+                                        : Storage::url($booking->artistProfile->user->avatar) }}"
+                                                 alt="{{ $booking->artistProfile->stage_name }}"
+                                                 class="w-full h-full object-cover">
+                                        @else
+                                            <span class="text-sm font-black text-blue-400">
+                                                {{ strtoupper(substr($booking->artistProfile->stage_name ?? $booking->artistProfile->user->name, 0, 1)) }}
+                                            </span>
+                                        @endif
+                                    </div>
 
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-white font-semibold text-sm truncate">
+                                            {{ $booking->artistProfile->stage_name ?? $booking->artistProfile->user->name }}
+                                        </p>
+                                        @if($booking->performance_date)
+                                            <p class="text-gray-500 text-xs mt-0.5">
+                                                {{ $booking->performance_date->format('M d, Y') }}
+                                                @if($booking->duration)
+                                                    · {{ $booking->duration }} min
+                                                @endif
+                                            </p>
+                                        @endif
+                                    </div>
+
+                                    @if($booking->fee)
+                                        <span class="text-sm font-bold text-blue-400 flex-shrink-0">
+                                            €{{ number_format($booking->fee, 2) }}
+                                        </span>
+                                    @endif
+
+                                    <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex-shrink-0">
+                                        Confirmed
+                                    </span>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
             </div>
 
             <div class="space-y-6">

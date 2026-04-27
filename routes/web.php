@@ -89,6 +89,8 @@ Route::middleware(['auth', 'verified', 'role:artist'])
         Route::post('/tracks', [TrackController::class, 'store'])->name('tracks.store');
         Route::delete('/tracks/{track}', [TrackController::class, 'destroy'])->name('tracks.destroy');
 
+        Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
+        Route::get('/bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
         Route::patch('/bookings/{booking}/accept', [BookingController::class, 'accept'])->name('bookings.accept');
         Route::patch('/bookings/{booking}/decline', [BookingController::class, 'decline'])->name('bookings.decline');
     });

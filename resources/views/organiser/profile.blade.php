@@ -6,10 +6,8 @@
         <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1
                     xl:grid-cols-3 gap-8 mt-8 pb-20">
 
-            {{-- BAL OLDAL (2/3) --}}
             <div class="xl:col-span-2 space-y-6">
 
-                {{-- About --}}
                 <div class="bg-(--color-card) border border-white/5 rounded-3xl p-8 shadow-xl">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/20
@@ -47,7 +45,6 @@
 
             </div>
 
-            {{-- JOBB OLDAL (1/3) --}}
             <div class="space-y-6">
                 <x-organiser.profile.info-card :user="$user" :profile="$profile" />
             </div>

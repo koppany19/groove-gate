@@ -10,6 +10,30 @@ use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
+    public function index()
+    {
+        $user = auth()->user();
+        $artist = $user->artistProfile;
+        $bookings = $user->artistProfile->bookings()->with(['event', 'event.organiserProfile.user'])->when(request('status'), fn($q, $status) => $q->where('status', $status))->latest()->get();
+
+        $counts = [
+            'all' => $artist->bookings()->count(),
+            'pending' => $artist->bookings()->where('status', BookingStatus::PENDING->value)->count(),
+            'accepted' => $artist->bookings()->where('status', BookingStatus::ACCEPTED->value)->count(),
+            'declined' => $artist->bookings()->where('status', BookingStatus::DECLINED->value)->count(),
+        ];
+        return view('artist.bookings', compact('bookings', 'user', 'counts'));
+    }
+
+    public function show(Booking $booking)
+    {
+        if ($booking->artistProfile->user_id !== auth()->id()) {
+            abort(403);
+        }
+        $booking->load(['event','event.organiserProfile' ,'event.organiserProfile.user']);
+
+        return view('artist.booking-show', compact('booking'));
+    }
     public function store(StoreBookingRequest $request)
     {
         $validated = $request->validated();
@@ -46,6 +70,6 @@ class BookingController extends Controller
         }
 
         $booking->update(['status' => BookingStatus::DECLINED->value]);
-        return back()->with('success', 'Event accepted successfully.');
+        return back()->with('success', 'Event declined successfully.');
     }
 }

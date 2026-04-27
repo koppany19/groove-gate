@@ -54,7 +54,7 @@ class Event extends Model
 
     public function confirmedBookings(): HasMany
     {
-        return $this->hasMany(Booking::class)->where('status', '=', BookingStatus::ACCEPTED);
+        return $this->hasMany(Booking::class)->where('status', '=', BookingStatus::ACCEPTED->value);
     }
 
 }
