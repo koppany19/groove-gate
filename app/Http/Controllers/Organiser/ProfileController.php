@@ -31,6 +31,8 @@ class ProfileController extends Controller
         $profile = $user->organiserProfile;
         $validated = $request->validated();
 
+        unset($validated['avatar'], $validated['cover_image']);
+
         if($request->hasFile('avatar')) {
             if ($user->avatar && !str_starts_with($user->avatar, 'http')) {
                 Storage::disk('public')->delete($user->avatar);

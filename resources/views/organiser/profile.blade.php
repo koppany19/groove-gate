@@ -8,38 +8,34 @@
 
             <div class="xl:col-span-2 space-y-6">
 
-                <div class="bg-(--color-card) border border-white/5 rounded-3xl p-8 shadow-xl">
+                <div class="bg-[#1A1D24] border border-white/5 rounded-3xl p-8 shadow-xl
+                            hover:border-white/10 transition-all"
+                     x-data="{ expanded: false }">
                     <div class="flex items-center gap-3 mb-6">
-                        <div class="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/20
+                        <div class="w-8 h-8 rounded-xl bg-white/5 border border-white/10
                                     flex items-center justify-center shrink-0">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                 stroke="#f97316" stroke-width="2">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" class="text-gray-400">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                                 <polyline points="14 2 14 8 20 8"/>
                                 <line x1="16" y1="13" x2="8" y2="13"/>
                                 <line x1="16" y1="17" x2="8" y2="17"/>
                             </svg>
                         </div>
-                        <div>
-                            <h2 class="text-lg font-bold text-white">About</h2>
-                            <p class="text-xs text-gray-500">Company description</p>
-                        </div>
+                        <h2 class="text-base font-bold text-white">About</h2>
                     </div>
 
                     @if($profile->description)
-                        <p class="text-gray-300 leading-relaxed">{{ $profile->description }}</p>
+                        <p class="text-gray-300 leading-relaxed text-sm"
+                           :class="expanded ? '' : 'line-clamp-3'">
+                            {{ $profile->description }}
+                        </p>
+                        <button @click="expanded = !expanded"
+                                class="text-xs text-gray-500 hover:text-white mt-3 transition-colors">
+                            <span x-text="expanded ? 'Show less ↑' : 'Show more...'"></span>
+                        </button>
                     @else
-                        <div class="flex items-center gap-3 py-4">
-                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                     stroke="currentColor" stroke-width="2" class="text-gray-600">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <line x1="12" y1="8" x2="12" y2="12"/>
-                                    <line x1="12" y1="16" x2="12.01" y2="16"/>
-                                </svg>
-                            </div>
-                            <p class="text-gray-600 text-sm">No description added yet.</p>
-                        </div>
+                        <p class="text-gray-600 text-sm">No description added yet.</p>
                     @endif
                 </div>
 

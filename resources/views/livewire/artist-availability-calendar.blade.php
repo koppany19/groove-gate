@@ -25,11 +25,12 @@
 
     <div class="grid grid-cols-7 gap-1">
         @for($i = 0; $i < $startDay; $i++)
-            <div></div>
+            <div wire:key="padding-{{ $i }}"></div>
         @endfor
 
         @foreach($days as $dayData)
             <button
+                wire:key="day-{{ $dayData['date'] }}"
                 wire:click="toggleDate('{{ $dayData['date'] }}')"
                 @disabled($dayData['isPast'])
                 class="
