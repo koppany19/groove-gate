@@ -57,4 +57,24 @@ class Event extends Model
         return $this->hasMany(Booking::class)->where('status', '=', BookingStatus::ACCEPTED->value);
     }
 
+    public function seats(): HasMany
+    {
+        return $this->hasMany(Seat::class);
+    }
+
+    public function ticketTypes(): HasMany
+    {
+        return $this->hasMany(TicketType::class);
+    }
+
+    public function tickets(): HasManyThrough
+    {
+        return $this->hasManyThrough(Ticket::class, TicketType::class, 'event_id', 'ticket_type_id', 'id', 'id');
+    }
+
+    public function lineup(): HasMany
+    {
+        return $this->HasMany(EventLineup::class);
+    }
+
 }
