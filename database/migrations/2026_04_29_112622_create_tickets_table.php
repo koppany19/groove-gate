@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('seat_number')->constrained('seat_numbers')->cascadeOnDelete();
+            $table->foreignId('seat_id')->constrained('seats')->cascadeOnDelete();
             $table->foreignId('ticket_type_id')->constrained('ticket_types')->cascadeOnDelete();
             $table->string('barcode', 9)->unique();
             $table->decimal('price', 10, 2)->default(0);
