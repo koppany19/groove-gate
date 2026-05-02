@@ -77,4 +77,56 @@ class Event extends Model
         return $this->HasMany(EventLineup::class);
     }
 
+    public function calculatePrice(): float
+    {
+        if (!$this->is_dynamic_price) {
+            return (float) $this->base_price;
+        }
+
+        $daysUntil = now()->diffInDays($this->start_date, false);
+
+        if ($daysUntil < 0) {
+            return (float) $this->base_price;
+        }
+
+        $totalTickets = $this->ticketTypes()->sum('quantity');
+        $soldTickets  = $this->tickets()->count();
+        $occupancy = $totalTickets > 0 ? $soldTickets / $totalTickets : 0;
+        $daysFactor      = 1 - (1 / ($daysUntil + 1));
+        $occupancyFactor = $occupancy;
+        $multiplier = 1 + (0.5 * (1 - $daysFactor)) + (0.5 * $occupancyFactor);
+        $price = $this->base_price * $multiplier;
+
+        return round(max($price, $this->base_price), 2);
+    }
+    public function isSoldOut(): bool
+    {
+        $totalTickets = $this->ticketTypes()->sum('quantity');
+        $soldTickets  = $this->tickets()->count();
+
+        if($totalTickets === 0 ) return false;
+
+        return $soldTickets >= $totalTickets;
+    }
+
+    public function availableSeats(): int
+    {
+        $totalTickets = $this->ticketTypes()->sum('quantity');
+
+        if ($totalTickets === 0) {
+            return $this->capacity ?? 0;
+        }
+
+        return max(0, $totalTickets - $this->tickets()->count());
+    }
+
+    public function isOnSale(): bool
+    {
+        if (!$this->sale_end_at) {
+            return true;
+        }
+
+        return now()->lt($this->sale_end_at);
+    }
+
 }

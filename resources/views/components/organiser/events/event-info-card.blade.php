@@ -2,8 +2,7 @@
 
 <div class="space-y-4">
 
-    <div class="bg-[#1A1D24] border border-white/5 border-t-2 border-t-blue-500/60
-                rounded-3xl overflow-hidden shadow-xl hover:border-white/10 transition-all">
+    <div class="bg-[#1A1D24] border border-white/5 border-t-2 border-t-blue-500/60 rounded-3xl overflow-hidden shadow-xl hover:border-white/10 transition-all">
         <div class="px-6 pt-6 pb-4 border-b border-white/5">
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
@@ -20,15 +19,30 @@
 
         @if($event->base_price)
             <div class="px-6 py-5 border-b border-white/5 bg-gradient-to-r from-blue-500/5 to-transparent">
-                <p class="text-xs text-gray-500 mb-1">Base Price</p>
-                <div class="flex items-end gap-2">
-                    <span class="text-3xl font-black text-blue-400">€{{ number_format($event->base_price, 2) }}</span>
-                    <span class="text-gray-500 text-sm mb-1">per ticket</span>
-                </div>
                 @if($event->is_dynamic_price)
-                    <div class="flex items-center gap-1.5 mt-2">
-                        <div class="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse"></div>
-                        <span class="text-xs text-orange-400 font-medium">Dynamic pricing enabled</span>
+                    <p class="text-xs text-gray-500 mb-1">Current Price</p>
+                    <div class="flex items-end gap-2">
+                        <span class="text-3xl font-black text-blue-400">
+                            €{{ number_format($event->calculatePrice(), 2) }}
+                        </span>
+                        <span class="text-gray-500 text-sm mb-1">per ticket</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-2">
+                        <div class="flex items-center gap-1.5">
+                            <div class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></div>
+                            <span class="text-xs text-white-400 font-medium">Dynamic pricing enabled</span>
+                        </div>
+                        <span class="text-xs text-gray-600">
+                            Base €{{ number_format($event->base_price, 2) }}
+                        </span>
+                    </div>
+                @else
+                    <p class="text-xs text-gray-500 mb-1">Base Price</p>
+                    <div class="flex items-end gap-2">
+                        <span class="text-3xl font-black text-blue-400">
+                            €{{ number_format($event->base_price, 2) }}
+                        </span>
+                        <span class="text-gray-500 text-sm mb-1">per ticket</span>
                     </div>
                 @endif
             </div>
@@ -41,7 +55,7 @@
         @if($event->sale_end_at)
             <div class="px-6 py-4 flex items-center justify-between">
                 <span class="text-sm text-gray-400">Sale ends</span>
-                <span class="text-sm font-bold text-white">
+                <span class="text-sm font-bold {{ $event->isOnSale() ? 'text-white' : 'text-red-400' }}">
                     {{ $event->sale_end_at->format('M d, Y') }}
                 </span>
             </div>
@@ -71,10 +85,11 @@
         <div class="px-6 py-5 space-y-4">
             <div class="flex items-center justify-between">
                 <span class="text-sm text-gray-400">Total Seats</span>
-                <span class="text-white-400 text-2xl font-black">
+                <span class="text-2xl font-black text-white">
                     {{ $event->capacity ? number_format($event->capacity) : 'Unlimited' }}
                 </span>
             </div>
+
 
             <div class="flex items-center justify-between">
                 <span class="text-sm text-gray-400">Entry Type</span>
@@ -100,8 +115,7 @@
         </div>
     </div>
 
-    <div class="bg-[#1A1D24] border border-white/5 border-t-2 border-t-purple-500/60
-                rounded-3xl overflow-hidden shadow-xl hover:border-white/10 transition-all">
+    <div class="bg-[#1A1D24] border border-white/5 border-t-2 border-t-purple-500/60 rounded-3xl overflow-hidden shadow-xl hover:border-white/10 transition-all">
         <div class="px-6 pt-6 pb-4 border-b border-white/5">
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
@@ -122,10 +136,8 @@
             <p class="text-white font-semibold mb-4">{{ $event->location }}</p>
             <a href="https://www.google.com/maps/search/{{ urlencode($event->location) }}"
                target="_blank"
-               class="flex items-center justify-center gap-2 w-full py-3 rounded-xl
-                      text-sm font-semibold text-purple-300
-                      bg-purple-500/10 border border-purple-500/20
-                      hover:bg-blue-500/20 transition-all">
+               class="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-semibold text-purple-300
+                      bg-purple-500/10 border border-purple-500/20 hover:bg-purple-500/20 transition-all">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
