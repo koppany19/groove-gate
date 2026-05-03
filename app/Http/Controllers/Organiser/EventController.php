@@ -56,7 +56,7 @@ class EventController extends Controller
         if($event->organiser_profile_id != auth()->user()->organiserProfile->id) {
             abort(403);
         }
-        $event->load(['confirmedBookings.artistProfile.user', 'bookings.artistProfile.user']);
+        $event->load(['confirmedBookings.artistProfile.user', 'bookings.artistProfile.user', 'ticketTypes']);
 
         return view('organiser.events.show', compact('event'));
     }
