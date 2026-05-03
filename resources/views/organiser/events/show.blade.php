@@ -129,7 +129,7 @@
             <div x-show="tab === 'overview'" class="grid grid-cols-1 xl:grid-cols-3 gap-8">
                 <div class="xl:col-span-2 space-y-5">
 
-                    <div class="bg-[#1A1D24] border border-white/5 border-t-2 border-t-gray-500/60
+                    <div class="bg-(--color-surface-3) border border-white/5 border-t-2 border-t-gray-500/60
                                 rounded-3xl p-8 shadow-xl hover:border-white/10 transition-all">
                         <div class="flex items-center gap-3 mb-5">
                             <div class="w-8 h-8 rounded-xl bg-white/5 border border-white/10
@@ -158,7 +158,7 @@
                         @endif
                     </div>
 
-                    <div class="bg-[#1A1D24] border border-white/5 border-t-2 border-t-gray-500/60
+                    <div class="bg-(--color-surface-3) border border-white/5 border-t-2 border-t-gray-500/60
                                 rounded-3xl p-8 shadow-xl hover:border-white/10 transition-all">
                         <div class="flex items-center gap-3 mb-5">
                             <div class="w-8 h-8 rounded-xl bg-white/5 border border-white/10
@@ -191,7 +191,7 @@
                         </div>
                     </div>
 
-                    <div class="bg-[#1A1D24] border border-white/5 border-t-2 border-t-gray-500/60
+                    <div class="bg-(--color-surface-3) border border-white/5 border-t-2 border-t-gray-500/60
                                 rounded-3xl p-8 shadow-xl hover:border-white/10 transition-all">
                         <div class="flex items-center gap-3 mb-5">
                             <div class="w-8 h-8 rounded-xl bg-white/5 border border-white/10
@@ -355,18 +355,174 @@
             </div>
 
             <div x-show="tab === 'tickets'">
-                <div class="bg-[#121A27] border border-white/5 rounded-3xl p-8 shadow-xl">
-                    <div class="flex flex-col items-center justify-center py-16 gap-3">
-                        <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10
-                                    flex items-center justify-center">
-                            <svg width="24" height="24" fill="none" stroke="currentColor"
-                                 stroke-width="1.5" viewBox="0 0 24 24" class="text-gray-600">
-                                <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2z"/>
-                            </svg>
+                <div class="bg-(--color-surface-3) border border-white/5 rounded-3xl p-8 shadow-xl">
+
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-base font-bold text-white">Ticket Types</h3>
+                            <p class="text-xs text-gray-500 mt-0.5">Manage pricing and availability</p>
                         </div>
-                        <p class="text-gray-400 text-sm font-medium">Ticket sales coming soon</p>
-                        <p class="text-gray-600 text-xs">This feature will be available in the next sprint</p>
                     </div>
+
+                    @if($event->ticketTypes->isEmpty())
+                        <div class="flex flex-col items-center justify-center py-10 rounded-2xl border border-dashed border-white/10 bg-white/[0.02] mb-6">
+                            <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-3">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="text-gray-600">
+                                    <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2z"/>
+                                </svg>
+                            </div>
+                            <p class="text-gray-500 text-sm mb-1">No ticket types yet</p>
+                            <p class="text-gray-600 text-xs">Add your first ticket type below</p>
+                        </div>
+                    @else
+                        <div class="space-y-3 mb-6">
+                            @foreach($event->ticketTypes as $type)
+                                <div class="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-all">
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-white font-semibold text-sm">{{ $type->name }}</p>
+                                        <div class="flex items-center gap-3 mt-1">
+                                            @if($type->sale_start_at || $type->sale_end_at)
+                                                <span class="text-xs text-gray-500">
+                                                    @if($type->sale_start_at)
+                                                        {{ $type->sale_start_at->format('M d') }}
+                                                    @endif
+                                                    @if($type->sale_end_at)
+                                                        → {{ $type->sale_end_at->format('M d, Y') }}
+                                                    @endif
+                                                </span>
+                                            @endif
+                                            <span class="text-xs {{ $type->isAvailable() ? 'text-emerald-400' : 'text-red-400' }}">
+                                                {{ $type->isAvailable() ? 'On sale' : 'Not available' }}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-right">
+                                        <p class="text-white font-bold text-sm">€{{ number_format($type->price, 2) }}</p>
+                                        <p class="text-xs text-gray-500 mt-0.5">{{ $type->soldTickets() }} / {{ $type->quantity }} sold</p>
+                                    </div>
+
+                                    <div class="w-px h-8 bg-white/10"></div>
+
+                                    <div class="flex items-center gap-2">
+                                        @if($type->soldTickets() === 0)
+                                            <form action="{{ route('organiser.events.ticket-types.destroy', [$event, $type]) }}" method="POST">
+                                                @csrf @method('DELETE')
+                                                <button type="submit"
+                                                        onclick="return confirm('Delete this ticket type?')"
+                                                        class="p-2 rounded-lg text-gray-600 hover:text-red-400 hover:bg-red-500/10 transition-all">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <polyline points="3 6 5 6 21 6"/>
+                                                        <path d="M19 6l-1 14H6L5 6"/>
+                                                        <path d="M10 11v6M14 11v6"/>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    <div class="border border-white/10 rounded-2xl p-5"
+                         x-data="{ open: false }">
+                        <button @click="open = !open"
+                                class="flex items-center gap-2 text-sm font-medium text-gray-400
+                           hover:text-white transition-colors w-full">
+                            <div class="w-6 h-6 rounded-lg bg-blue-500/10 border border-blue-500/20
+                            flex items-center justify-center flex-shrink-0">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                                     stroke="#3b82f6" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                            </div>
+                            Add ticket type
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" class="ml-auto transition-transform"
+                                 :class="open ? 'rotate-180' : ''">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </button>
+
+                        <div x-show="open" x-transition class="mt-5">
+                            <form action="{{ route('organiser.events.ticket-types.store', $event) }}" method="POST">
+                                @csrf
+
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div class="space-y-1.5">
+                                        <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                            Name
+                                        </label>
+                                        <input type="text"
+                                               name="name"
+                                               placeholder="e.g. Early Bird"
+                                               value="{{ old('name') }}"
+                                               class="w-full px-4 py-3 rounded-xl text-white text-sm
+                                          bg-white/5 border border-white/10 outline-none
+                                          focus:border-blue-500/50 transition-all placeholder-gray-600">
+                                    </div>
+
+                                    <div class="space-y-1.5">
+                                        <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                            Price (€)
+                                        </label>
+                                        <div class="relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2
+                                             text-gray-500 text-sm font-bold">€</span>
+                                            <input type="number"
+                                                   name="price"
+                                                   placeholder="0.00"
+                                                   min="0"
+                                                   step="0.01"
+                                                   value="{{ old('price') }}"
+                                                   class="w-full pl-8 pr-4 py-3 rounded-xl text-white text-sm
+                                              bg-white/5 border border-white/10 outline-none
+                                              focus:border-blue-500/50 transition-all placeholder-gray-600">
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-1.5">
+                                        <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                            Quantity
+                                        </label>
+                                        <input type="number"
+                                               name="quantity"
+                                               placeholder="100"
+                                               min="1"
+                                               value="{{ old('quantity') }}"
+                                               class="w-full px-4 py-3 rounded-xl text-white text-sm
+                                          bg-white/5 border border-white/10 outline-none
+                                          focus:border-blue-500/50 transition-all placeholder-gray-600">
+                                    </div>
+
+                                    <div class="space-y-1.5">
+                                        <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                            Sale ends
+                                            <span class="text-gray-600 normal-case font-normal">(optional)</span>
+                                        </label>
+                                        <input type="datetime-local"
+                                               name="sale_end_at"
+                                               value="{{ old('sale_end_at') }}"
+                                               class="w-full px-4 py-3 rounded-xl text-white text-sm
+                                          bg-white/5 border border-white/10 outline-none
+                                          focus:border-blue-500/50 transition-all
+                                          [color-scheme:dark]">
+                                    </div>
+                                </div>
+
+                                <button type="submit"
+                                        class="w-full py-3 rounded-xl text-white font-bold text-sm
+                                   bg-gradient-to-r from-blue-600 to-blue-500
+                                   hover:from-blue-500 hover:to-blue-400
+                                   shadow-lg shadow-blue-500/20 transition-all">
+                                    Create Ticket Type
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

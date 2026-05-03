@@ -9,6 +9,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Organiser\ArtistBrowseController;
 use App\Http\Controllers\Organiser\EventController;
 
+use App\Http\Controllers\Organiser\TicketTypeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -64,6 +65,10 @@ Route::middleware(['auth', 'verified', 'role:organiser'])
         Route::patch('/events/{event}/cancel', [EventController::class, 'cancel'])->name('events.cancel');
 
         Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+
+        Route::post('/events/{event}/ticket-types', [TicketTypeController::class, 'store'])->name('events.ticket-types.store');
+        Route::put('/events/{event}/ticket-types/{ticketType}', [TicketTypeController::class, 'update'])->name('events.ticket-types.update');
+        Route::delete('/events/{event}/ticket-types/{ticketType}', [TicketTypeController::class, 'destroy'])->name('events.ticket-types.destroy');
     });
 
 // Audience routes
