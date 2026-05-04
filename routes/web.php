@@ -77,7 +77,8 @@ Route::middleware(['auth', 'role:audience', 'verified'])
     ->name('audience.')
     ->group(function () {
         Route::get('/dashboard', function () {return view('audience.dashboard');})->name('dashboard');
-        Route::get('/events', function () {return view('audience.events');})->name('events');
+        Route::get('/events', [App\Http\Controllers\Audience\EventController::class, 'index'])->name('events.index');
+        Route::get('/events/{event}', [App\Http\Controllers\Audience\EventController::class, 'show'])->name('events.show');
     });
 
 //Artist routes
