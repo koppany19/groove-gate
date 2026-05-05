@@ -226,18 +226,22 @@
                                             Sold out
                                         </span>
                                     @else
-                                        <button disabled
-                                                class="px-4 py-2 rounded-xl text-sm font-bold text-white
-                                                       bg-blue-500/50 cursor-not-allowed">
-                                            Buy
-                                        </button>
+                                        <form action="{{ route('audience.checkout.create', [$event, $type]) }}" method="POST">
+                                            @csrf
+                                            <button type="submit"
+                                                    class="px-4 py-2 rounded-xl text-sm font-bold text-white
+                                                           bg-gradient-to-r from-blue-600 to-blue-500
+                                                           hover:from-blue-500 hover:to-blue-400
+                                                           shadow-lg shadow-blue-500/20 transition-all"
+                                            >
+                                                Buy
+                                            </button>
+                                        </form>
                                     @endif
                                 </div>
                             </div>
                         @endforeach
                     </div>
-
-                    <p class="text-xs text-gray-600 text-center mt-4">Ticket purchasing coming soon</p>
                 </div>
             @endif
         </div>

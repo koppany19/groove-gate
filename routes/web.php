@@ -10,6 +10,7 @@ use App\Http\Controllers\Organiser\ArtistBrowseController;
 use App\Http\Controllers\Organiser\EventController;
 
 use App\Http\Controllers\Organiser\TicketTypeController;
+use App\Http\Controllers\Stripe\StripeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -79,7 +80,13 @@ Route::middleware(['auth', 'role:audience', 'verified'])
         Route::get('/dashboard', function () {return view('audience.dashboard');})->name('dashboard');
         Route::get('/events', [App\Http\Controllers\Audience\EventController::class, 'index'])->name('events.index');
         Route::get('/events/{event}', [App\Http\Controllers\Audience\EventController::class, 'show'])->name('events.show');
+
+        Route::post('/checkout/{event}/{ticketType}', [StripeController::class, 'createCheckoutSession'])->name('checkout.create');
+        Route::get('/checkout/success', [StripeController::class, 'success'])->name('checkout.success');
+        Route::get('/checkout/cancel', [StripeController::class, 'cancel'])->name('checkout.cancel');
     });
+
+Route::post('/stripe/webhook', [StripeController::class, 'handleWebhook'])->name('stripe.webhook');
 
 //Artist routes
 Route::middleware(['auth', 'verified', 'role:artist'])
