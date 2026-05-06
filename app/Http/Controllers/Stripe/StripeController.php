@@ -26,7 +26,7 @@ class StripeController extends Controller
                         'name' => $ticketType->name,
                         'description' => $event->name,
                     ],
-                    'unit_amount' => (int) ($event->calculatePrice() * 100),
+                    'unit_amount' => (int) ($ticketType->price * 100),
                 ],
                 'quantity' => 1,
             ]],
@@ -70,7 +70,7 @@ class StripeController extends Controller
             $ticketTypeId = $session->metadata->ticket_type_id;
             $userId = $session->metadata->user_id;
 
-            $exists = Ticket::where('stripe_payment_intent_id', $session->payment_intent)->exists();
+            $exists = Ticket::where('stripe_payment_id', $session->payment_intent)->exists();
             if (!$exists) {
                 $ticketType = TicketType::find($ticketTypeId);
                 $eventModel = Event::find($eventId);
@@ -86,13 +86,12 @@ class StripeController extends Controller
                 }
 
                 Ticket::create([
-                    'event_id' => $eventId,
                     'user_id' => $userId,
                     'ticket_type_id' => $ticketTypeId,
                     'seat_id' => $seatId,
-                    'price' => $eventModel->calculatePrice(),
+                    'price' => $ticketType->price,
                     'barcode' => $this->generateBarcode(),
-                    'stripe_payment_intent_id' => $session->payment_intent
+                    'stripe_payment_id' => $session->payment_intent
                 ]);
             }
         }

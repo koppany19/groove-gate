@@ -20,6 +20,18 @@ class Ticket extends Model
         'admission_time',
     ];
 
+    public function event(): \Illuminate\Database\Eloquent\Relations\HasOneThrough
+    {
+        return $this->hasOneThrough(
+            \App\Models\Event::class,
+            \App\Models\TicketType::class,
+            'id',
+            'id',
+            'ticket_type_id',
+            'event_id'
+        );
+    }
+
     protected $casts = [
         'admission_time' => 'datetime',
         'price' => 'decimal:2'

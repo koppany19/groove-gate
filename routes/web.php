@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Artist\ProfileController;
 use App\Http\Controllers\Artist\TrackController;
+use App\Http\Controllers\Audience\DashboardController;
+use App\Http\Controllers\Audience\TicketController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\OAuthController;
@@ -84,6 +86,10 @@ Route::middleware(['auth', 'role:audience', 'verified'])
         Route::post('/checkout/{event}/{ticketType}', [StripeController::class, 'createCheckoutSession'])->name('checkout.create');
         Route::get('/checkout/success', [StripeController::class, 'success'])->name('checkout.success');
         Route::get('/checkout/cancel', [StripeController::class, 'cancel'])->name('checkout.cancel');
+
+        Route::get('/tickets/{barcode}', [TicketController::class, 'show'])->name('tickets.show');
+
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     });
 
 Route::post('/stripe/webhook', [StripeController::class, 'handleWebhook'])->name('stripe.webhook');
