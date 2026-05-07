@@ -12,6 +12,7 @@ use App\Http\Controllers\Organiser\ArtistBrowseController;
 use App\Http\Controllers\Organiser\EventController;
 
 use App\Http\Controllers\Organiser\TicketTypeController;
+use App\Http\Controllers\Organiser\TicketValidationController;
 use App\Http\Controllers\Stripe\StripeController;
 use Illuminate\Support\Facades\Route;
 
@@ -72,6 +73,8 @@ Route::middleware(['auth', 'verified', 'role:organiser'])
         Route::post('/events/{event}/ticket-types', [TicketTypeController::class, 'store'])->name('events.ticket-types.store');
         Route::put('/events/{event}/ticket-types/{ticketType}', [TicketTypeController::class, 'update'])->name('events.ticket-types.update');
         Route::delete('/events/{event}/ticket-types/{ticketType}', [TicketTypeController::class, 'destroy'])->name('events.ticket-types.destroy');
+
+        Route::post('/events/{event}/validate-ticket', [TicketValidationController::class, 'validate'])->name('events.validate-ticket');
     });
 
 // Audience routes

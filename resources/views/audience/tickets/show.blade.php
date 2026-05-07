@@ -74,13 +74,24 @@
                                     rounded-full bg-(--color-background)"></div>
                     </div>
 
-                    <div class="flex flex-col items-center gap-3">
-                        <div class="bg-white p-5 rounded-2xl shadow-lg">
+                    <div class="flex flex-col items-center gap-4">
+                        <div class="bg-white p-5 rounded-2xl shadow-lg" id="qr-code">
                             {!! $qrCode !!}
                         </div>
                         <p class="text-xs text-(--color-muted-2) text-center">
                             Mutasd be ezt a kódot a beléptetőnek
                         </p>
+                        <a href="data:image/svg+xml;charset=utf-8,{{ rawurlencode($qrCode) }}"
+                           download="ticket-{{ $ticket->barcode }}.svg"
+                           class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium text-gray-400 border border-white/10 hover:border-white/20 hover:text-white transition-all">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Download QR Code
+                        </a>
                     </div>
                 </div>
             </div>

@@ -428,10 +428,8 @@
                     <div class="border border-white/10 rounded-2xl p-5"
                          x-data="{ open: false }">
                         <button @click="open = !open"
-                                class="flex items-center gap-2 text-sm font-medium text-gray-400
-                           hover:text-white transition-colors w-full">
-                            <div class="w-6 h-6 rounded-lg bg-blue-500/10 border border-blue-500/20
-                            flex items-center justify-center flex-shrink-0">
+                                class="flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-white transition-colors w-full">
+                            <div class="w-6 h-6 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                                      stroke="#3b82f6" stroke-width="2">
                                     <line x1="12" y1="5" x2="12" y2="19"/>
@@ -521,6 +519,76 @@
                                 </button>
                             </form>
                         </div>
+                    </div>
+
+                    <div class="border-t border-white/5 pt-8 mt-8">
+
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-8 h-8 rounded-xl bg-white/5 border border-white/10
+                                        flex items-center justify-center shrink-0">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" class="text-gray-400">
+                                    <rect x="3" y="3" width="7" height="7"/>
+                                    <rect x="14" y="3" width="7" height="7"/>
+                                    <rect x="3" y="14" width="7" height="7"/>
+                                    <rect x="14" y="14" width="3" height="3"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-bold text-white">Validate Ticket</h3>
+                                <p class="text-xs text-gray-500 mt-0.5">Enter a barcode to admit a guest</p>
+                            </div>
+                        </div>
+
+                        @if(session('validation_success'))
+                            <div class="p-4 rounded-2xl flex items-start gap-3 mb-4
+                                        bg-emerald-500/10 border border-emerald-500/20">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                     stroke="#10b981" stroke-width="2" class="shrink-0 mt-0.5">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <p class="text-sm font-semibold text-emerald-400">
+                                    {{ session('validation_success') }}
+                                </p>
+                            </div>
+                        @endif
+
+                        @if(session('validation_error'))
+                            <div class="p-4 rounded-2xl flex items-start gap-3 mb-4
+                                        bg-red-500/10 border border-red-500/20">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                     stroke="#ef4444" stroke-width="2" class="shrink-0 mt-0.5">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="15" y1="9" x2="9" y2="15"/>
+                                    <line x1="9" y1="9" x2="15" y2="15"/>
+                                </svg>
+                                <p class="text-sm font-semibold text-red-400">
+                                    {{ session('validation_error') }}
+                                </p>
+                            </div>
+                        @endif
+
+                        <form action="{{ route('organiser.events.validate-ticket', $event) }}" method="POST">
+                            @csrf
+                            <div class="flex gap-3">
+                                <input type="text"
+                                       name="barcode"
+                                       placeholder="Enter 9-digit barcode..."
+                                       maxlength="9"
+                                       value="{{ old('barcode') }}"
+                                       class="flex-1 px-4 py-3 rounded-xl text-white text-sm font-mono
+                                              bg-white/5 border border-white/10 outline-none
+                                              focus:border-blue-500/50 transition-all placeholder-gray-600">
+                                <button type="submit"
+                                        class="px-6 py-3 rounded-xl text-white font-bold text-sm
+                                               bg-gradient-to-r from-blue-600 to-blue-500
+                                               hover:from-blue-500 hover:to-blue-400
+                                               shadow-lg shadow-blue-500/20 transition-all">
+                                    Validate
+                                </button>
+                            </div>
+                        </form>
+
                     </div>
 
                 </div>
