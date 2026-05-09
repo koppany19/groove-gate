@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
 
         $artist = User::create([
             'name'     => 'Demo Artist',
-            'email'    => 'artist@demo.com',
+            'email'    => 'z',
             'password' => $password,
             'role'     => 'artist',
         ]);

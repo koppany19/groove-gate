@@ -69,4 +69,9 @@
         @apply bg-(--color-card) border border-white/5 rounded-3xl p-8 shadow-xl;
         background: linear-gradient(135deg, rgba(18, 26, 39, 1) 0%, rgba(15, 20, 30, 1) 100%);
     }
+
+    .chart-container {
+        @apply p-6;
+        height: 260px;
+    }
 }

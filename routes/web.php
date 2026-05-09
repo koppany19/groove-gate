@@ -53,7 +53,7 @@ Route::middleware(['auth', 'verified', 'role:organiser'])
     ->prefix('organiser')
     ->name('organiser.')
     ->group(function () {
-        Route::get('/dashboard', fn() => view('organiser.dashboard'))->name('dashboard');
+        Route::get('/dashboard', [\App\Http\Controllers\Organiser\DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/profile', [App\Http\Controllers\Organiser\ProfileController::class, 'show'])->name('profile');
         Route::get('/profile/edit', [App\Http\Controllers\Organiser\ProfileController::class, 'edit'])->name('profile.edit');
@@ -102,7 +102,7 @@ Route::middleware(['auth', 'verified', 'role:artist'])
     ->prefix('artist')
     ->name('artist.')
     ->group(function () {
-        Route::get('/dashboard', fn() => view('artist.dashboard'))->name('dashboard');
+        Route::get('/dashboard', [App\Http\Controllers\Artist\DashboardController::class, 'index'])->name('dashboard');
         Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');

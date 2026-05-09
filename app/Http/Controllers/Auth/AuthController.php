@@ -37,7 +37,6 @@ class AuthController extends Controller
                 'user_id'     => $user->id,
                 'stage_name'  => $request->stage_name,
                 'bio'         => $request->bio,
-                'press_text'  => $request->press_text,
                 'genre'       => $request->genre ?? [],
                 'genre_other' => $request->genre_other,
                 'artist_type' => $request->artist_type,
