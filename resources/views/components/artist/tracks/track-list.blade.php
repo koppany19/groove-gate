@@ -22,12 +22,7 @@
         <div class="text-center py-10">
             <div class="w-14 h-14 rounded-full bg-white/5 flex items-center
                         justify-center mx-auto mb-3">
-                <svg width="22" height="22" fill="none" stroke="currentColor"
-                     stroke-width="1.5" viewBox="0 0 24 24" class="text-gray-600">
-                    <path d="M9 18V5l12-2v13"/>
-                    <circle cx="6" cy="18" r="3"/>
-                    <circle cx="18" cy="16" r="3"/>
-                </svg>
+                <x-icon name="music" size="22" stroke-width="1.5" class="text-gray-600" />
             </div>
             <p class="text-gray-500 text-sm">No tracks uploaded yet.</p>
             <p class="text-gray-600 text-xs mt-1">

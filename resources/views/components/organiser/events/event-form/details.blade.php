@@ -99,9 +99,7 @@
                  x-transition:enter-end="opacity-100 translate-y-0"
                  class="px-4 py-3.5 rounded-xl bg-orange-500/5 border border-orange-500/20 space-y-1.5">
                 <p class="text-xs text-orange-400 font-semibold flex items-center gap-1.5">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-                    </svg>
+                    <x-icon name="info" size="11" />
                     Dynamic Price Formula
                 </p>
                 <p class="text-xs text-gray-400 font-mono leading-relaxed">

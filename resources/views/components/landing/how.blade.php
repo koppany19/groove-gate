@@ -16,13 +16,13 @@
                     <div class="flex items-center gap-6 mb-10">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                                <x-icon name="chart" size="16" stroke="white" />
                             </div>
                             <span class="text-white font-semibold text-sm">Real-time stats</span>
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                <x-icon name="calendar" size="16" stroke="white" />
                             </div>
                             <span class="text-white font-semibold text-sm">Smart booking</span>
                         </div>
@@ -38,13 +38,13 @@
                     <div class="flex items-center gap-6 mb-10">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                                <x-icon name="music" size="16" stroke="white" />
                             </div>
                             <span class="text-white font-semibold text-sm">Easy booking</span>
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                <x-icon name="user" size="16" stroke="white" />
                             </div>
                             <span class="text-white font-semibold text-sm">Profile management</span>
                         </div>

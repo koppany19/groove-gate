@@ -20,11 +20,7 @@
         </h3>
         @if($profile->duration)
             <p class="text-sm text-gray-400 mt-2 flex items-center justify-center gap-2">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"/>
-                    <polyline points="12 6 12 12 16 14"/>
-                </svg>
+                <x-icon name="clock" size="14" />
                 {{ $profile->duration }} min set
             </p>
         @endif

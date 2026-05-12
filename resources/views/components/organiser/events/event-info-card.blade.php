@@ -6,9 +6,7 @@
         <div class="px-6 pt-6 pb-4 border-b border-white/5">
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
-                        <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2z"/>
-                    </svg>
+                    <x-icon name="ticket" size="16" stroke="#3b82f6" />
                 </div>
                 <div>
                     <p class="text-white font-bold text-sm">Ticket Info</p>
@@ -67,13 +65,7 @@
         <div class="px-6 pt-6 pb-4 border-b border-white/5">
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2" class="text-gray-400">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                        <circle cx="9" cy="7" r="4"/>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
+                    <x-icon name="users" size="16" class="text-gray-400" />
                 </div>
                 <div>
                     <p class="text-white font-bold text-sm">Capacity</p>
@@ -96,18 +88,10 @@
                 <span class="flex items-center gap-2 text-sm font-bold
                              {{ $event->has_seats ? 'text-emerald-500' : 'text-emerald-400' }}">
                     @if($event->has_seats)
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2">
-                            <path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
-                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                        </svg>
+                        <x-icon name="ticket" size="13" />
                         Assigned Seats
                     @else
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                        </svg>
+                        <x-icon name="user" size="13" />
                         Free Standing
                     @endif
                 </span>
@@ -119,11 +103,7 @@
         <div class="px-6 pt-6 pb-4 border-b border-white/5">
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2" class="text-gray-400">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                        <circle cx="12" cy="10" r="3"/>
-                    </svg>
+                    <x-icon name="location" size="16" class="text-gray-400" />
                 </div>
                 <div>
                     <p class="text-white font-bold text-sm">Location</p>
@@ -138,18 +118,9 @@
                target="_blank"
                class="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-semibold text-purple-300
                       bg-purple-500/10 border border-purple-500/20 hover:bg-purple-500/20 transition-all">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                    <circle cx="12" cy="10" r="3"/>
-                </svg>
+                <x-icon name="location" size="15" />
                 View on Google Maps
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                    <polyline points="15 3 21 3 21 9"/>
-                    <line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
+                <x-icon name="arrow-right" size="12" />
             </a>
         </div>
     </div>

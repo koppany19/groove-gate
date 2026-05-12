@@ -12,16 +12,12 @@
         <div class="absolute bottom-20 left-40 w-80 h-80 rounded-full bg-purple-500/5 blur-3xl"></div>
     @endif
 
-        <div class="absolute inset-0 bg-gradient-to-t from-(--artist-background) via-(--artist-background)/60 to-(--artist-background)/20"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-(--color-artist-bg) via-(--color-artist-bg)/60 to-(--color-artist-bg)/20"></div>
 
     <div class="absolute top-6 right-8 z-10">
         <a href="{{ route('organiser.profile.edit') }}"
            class="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition-all duration-300">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-            </svg>
+            <x-icon name="edit" size="14" />
             Edit Profile
         </a>
     </div>
@@ -66,11 +62,7 @@
                         <span class="flex items-center gap-1.5 text-sm font-medium text-purple-300
                                      bg-purple-500/10 px-4 py-1.5 rounded-full backdrop-blur-sm
                                      border border-purple-500/20">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                 stroke="currentColor" stroke-width="2">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                                <circle cx="12" cy="10" r="3"/>
-                            </svg>
+                            <x-icon name="location" size="14" />
                             {{ $profile->location }}
                         </span>
                     @endif
@@ -78,11 +70,7 @@
                     <span class="flex items-center gap-1.5 text-sm font-medium text-orange-300
                                  bg-orange-500/10 px-4 py-1.5 rounded-full backdrop-blur-sm
                                  border border-orange-500/20">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2">
-                            <path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
-                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                        </svg>
+                        <x-icon name="user" size="14" />
                         Organiser
                     </span>
                 </div>

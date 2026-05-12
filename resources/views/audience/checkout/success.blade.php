@@ -11,10 +11,7 @@
 
                 <div class="w-20 h-20 rounded-full bg-emerald-500/15 border border-emerald-500/25
                             flex items-center justify-center mx-auto mb-6">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none"
-                         stroke="#10b981" stroke-width="2.5" stroke-linecap="round">
-                        <polyline points="20 6 9 17 4 12"/>
-                    </svg>
+                    <x-icon name="check" size="36" stroke="#10b981" stroke-width="2.5" />
                 </div>
 
                 <h1 class="text-3xl font-black text-white mb-2">You're going!</h1>

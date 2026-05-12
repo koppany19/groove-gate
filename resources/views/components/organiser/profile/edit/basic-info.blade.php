@@ -3,9 +3,7 @@
 <div class="bg-(--color-card) border border-white/5 rounded-3xl p-8 shadow-xl">
     <div class="flex items-center gap-3 mb-7">
         <div class="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center shrink-0">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-            </svg>
+            <x-icon name="user" size="16" stroke="#f97316" />
         </div>
         <div>
             <h2 class="text-base font-bold text-white">Basic Information</h2>

@@ -11,7 +11,7 @@
         <div class="absolute bottom-20 left-40 w-80 h-80 rounded-full bg-purple-500/5 blur-3xl"></div>
     @endif
 
-    <div class="absolute inset-0 bg-gradient-to-t from-(--artist-background) via-(--artist-background)/60 to-(--artist-background)/20"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-(--color-artist-bg) via-(--color-artist-bg)/60 to-(--color-artist-bg)/20"></div>
 
     @if(!$readonly)
             <div class="absolute top-6 right-8 z-10">
@@ -19,11 +19,7 @@
                    class="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold
                   text-white bg-white/10 hover:bg-white/20 border border-white/20
                   backdrop-blur-md transition-all duration-300">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2">
-                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                    </svg>
+                    <x-icon name="edit" size="14" />
                     Edit Profile
                 </a>
             </div>
@@ -34,7 +30,7 @@
 
             <div class="relative shrink-0">
                 <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden
-                            border-4 border-(--artist-background) bg-[#151E2D]
+                            border-4 border-(--color-artist-bg) bg-[#151E2D]
                             flex items-center justify-center shadow-2xl relative z-10">
                     @if($user->avatar)
                         <img src="{{ str_starts_with($user->avatar, 'http')
@@ -51,7 +47,7 @@
 
                 @if($profile->is_available ?? true)
                     <div class="absolute bottom-2 right-2 md:bottom-4 md:right-4
-                                flex items-center gap-2 bg-(--artist-background) rounded-full
+                                flex items-center gap-2 bg-(--color-artist-bg) rounded-full
                                 pl-1.5 pr-3 py-1 border border-white/10 z-20 shadow-lg">
                         <span class="relative flex h-3 w-3">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -83,11 +79,7 @@
                         <span class="flex items-center gap-1.5 text-sm font-medium text-gray-300
                                      bg-white/5 px-4 py-1.5 rounded-full backdrop-blur-sm
                                      border border-white/10 shadow-sm">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                 stroke="currentColor" stroke-width="2">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                                <circle cx="12" cy="10" r="3"/>
-                            </svg>
+                            <x-icon name="location" size="14" />
                             {{ $profile->location }}
                         </span>
                     @endif

@@ -40,10 +40,7 @@
                 <div class="bg-(--color-surface) border border-(--color-border) rounded-2xl p-6
                             hover:border-blue-500 hover:-translate-y-1 transition-all duration-300">
                     <div class="w-10 h-10 bg-(--color-primary)/10 rounded-xl flex items-center justify-center mb-4">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <polyline points="12 6 12 12 16 14"/>
-                        </svg>
+                        <x-icon name="clock" size="20" stroke="#3b82f6" />
                     </div>
                     <h4 class="text-white font-bold text-base mb-2">Real-time Stats</h4>
                     <p class="text-gray-400 text-sm leading-relaxed">Track your event performance live as it happens.</p>
@@ -52,11 +49,7 @@
                 <div class="bg-(--color-surface) border border-(--color-border) rounded-2xl p-6
                             hover:border-blue-500 hover:-translate-y-1 transition-all duration-300">
                     <div class="w-10 h-10 bg-(--color-primary)/10 rounded-xl flex items-center justify-center mb-4">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
-                            <path d="M9 18V5l12-2v13"/>
-                            <circle cx="6" cy="18" r="3"/>
-                            <circle cx="18" cy="16" r="3"/>
-                        </svg>
+                        <x-icon name="music" size="20" stroke="#3b82f6" />
                     </div>
                     <h4 class="text-white font-bold text-base mb-2">Smart Booking</h4>
                     <p class="text-gray-400 text-sm leading-relaxed">Effortless artist booking with intelligent matching.</p>
@@ -65,12 +58,7 @@
                 <div class="bg-(--color-surface) border border-(--color-border) rounded-2xl p-6
                             hover:border-blue-500 hover:-translate-y-1 transition-all duration-300">
                     <div class="w-10 h-10 bg-(--color-primary)/10 rounded-xl flex items-center justify-center mb-4">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
+                        <x-icon name="users" size="20" stroke="#3b82f6" />
                     </div>
                     <h4 class="text-white font-bold text-base mb-2">Community</h4>
                     <p class="text-gray-400 text-sm leading-relaxed">Connect fans, artists and organisers in one place.</p>

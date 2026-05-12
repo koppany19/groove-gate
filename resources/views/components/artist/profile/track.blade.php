@@ -78,12 +78,7 @@
                 {{ $platform['label'] }}
             </span>
 
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2"
-                 class="text-gray-500 transition-transform duration-200"
-                 :class="open ? 'rotate-180' : ''">
-                <polyline points="6 9 12 15 18 9"/>
-            </svg>
+            <x-icon name="chevron-down" size="16" class="text-gray-500 transition-transform duration-200" />
         </div>
 
     </div>

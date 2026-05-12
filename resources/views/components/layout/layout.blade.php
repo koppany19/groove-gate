@@ -32,18 +32,12 @@
                                 bg-zinc-900 border border-zinc-700 text-white
                                 px-5 py-3 rounded-xl shadow-xl">
                     <div class="flex items-center justify-center w-7 h-7 rounded-full bg-green-500/20">
-                        <svg class="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24"
-                             stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                        </svg>
+                        <x-icon name="check" size="16" class="text-green-400" />
                     </div>
                     <p class="text-sm font-medium">{{ $value }}</p>
                     <button @click="show = false"
                             class="ml-2 text-zinc-500 hover:text-white transition-colors">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24"
-                             stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
+                        <x-icon name="x" size="16" />
                     </button>
                 </div>
                 @endsession

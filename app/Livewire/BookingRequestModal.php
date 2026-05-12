@@ -8,6 +8,7 @@ use App\Models\ArtistAvailability;
 use App\Models\ArtistProfile;
 use App\Models\Booking;
 use App\Models\Event;
+use App\Notifications\BookingReceived;
 use Illuminate\View\View;
 use Livewire\Component;
 
@@ -84,7 +85,7 @@ class BookingRequestModal extends Component
             return;
         }
 
-        Booking::create([
+        $booking = Booking::create([
             'event_id' => $this->selectedEventId,
             'artist_profile_id' => $this->artistProfileId,
             'fee' => $this->fee,
@@ -93,6 +94,8 @@ class BookingRequestModal extends Component
             'performance_date' => $this->performanceDate,
             'status' => BookingStatus::PENDING,
         ]);
+
+        $booking->artistProfile->user->notify( new BookingReceived ($booking->load(['event.organiserProfile.user', 'artistProfile'])));
 
         $this->success = true;
         $this->open = false;

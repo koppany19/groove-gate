@@ -7,9 +7,7 @@
             <div class="flex items-center gap-4 mb-6">
                 <a href="{{ route('audience.events.index') }}"
                    class="p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all">
-                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M19 12H5M12 19l-7-7 7-7"/>
-                    </svg>
+                    <x-icon name="arrow-left" size="18" />
                 </a>
             </div>
 
@@ -33,18 +31,12 @@
                         <h1 class="text-2xl font-black text-white tracking-tight mb-2">{{ $event->name }}</h1>
                         <div class="flex flex-wrap items-center gap-4 text-sm text-gray-300">
                             <span class="flex items-center gap-1.5">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                                    <circle cx="12" cy="10" r="3"/>
-                                </svg>
+                                <x-icon name="location" size="12" />
                                 {{ $event->location }}
                             </span>
                             <span class="text-white/20">·</span>
                             <span class="flex items-center gap-1.5">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="4" width="18" height="18" rx="2"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
+                                <x-icon name="calendar" size="12" />
                                 {{ $event->start_date->format('M d, Y') }}
                                 @if($event->end_date) – {{ $event->end_date->format('M d, Y') }} @endif
                             </span>
@@ -67,12 +59,7 @@
 
                         <div class="flex items-center gap-3 mb-5">
                             <div class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-gray-400">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                    <polyline points="14 2 14 8 20 8"/>
-                                    <line x1="16" y1="13" x2="8" y2="13"/>
-                                    <line x1="16" y1="17" x2="8" y2="17"/>
-                                </svg>
+                                <x-icon name="file" size="14" class="text-gray-400" />
                             </div>
                             <h3 class="text-base font-bold text-white">About this Event</h3>
                         </div>
@@ -95,12 +82,7 @@
 
                         <div class="flex items-center gap-3 mb-5">
                             <div class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-gray-400">
-                                    <rect x="3" y="4" width="18" height="18" rx="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6"/>
-                                    <line x1="8" y1="2" x2="8" y2="6"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
+                                <x-icon name="calendar" size="14" class="text-gray-400" />
                             </div>
                             <h3 class="text-base font-bold text-white">Event Details</h3>
                         </div>
@@ -130,11 +112,7 @@
 
                             <div class="flex items-center gap-3 mb-5">
                                 <div class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-gray-400">
-                                        <path d="M9 18V5l12-2v13"/>
-                                        <circle cx="6" cy="18" r="3"/>
-                                        <circle cx="18" cy="16" r="3"/>
-                                    </svg>
+                                    <x-icon name="music" size="14" class="text-gray-400" />
                                 </div>
                                 <h3 class="text-base font-bold text-white">Lineup</h3>
                             </div>
@@ -194,9 +172,7 @@
 
                     <div class="flex items-center gap-3 mb-5">
                         <div class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-gray-400">
-                                <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2z"/>
-                            </svg>
+                            <x-icon name="ticket" size="14" class="text-gray-400" />
                         </div>
                         <h3 class="text-base font-bold text-white">Tickets</h3>
                     </div>

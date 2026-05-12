@@ -5,10 +5,7 @@
             <div class="flex items-center gap-4 mb-8">
                 <a href="{{ route('artist.bookings') }}"
                    class="p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all">
-                    <svg width="18" height="18" fill="none" stroke="currentColor"
-                         stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M19 12H5M12 19l-7-7 7-7"/>
-                    </svg>
+                    <x-icon name="arrow-left" size="18" />
                 </a>
                 <div>
                     <h1 class="text-3xl font-black text-white tracking-tight">Booking Request</h1>
@@ -29,11 +26,7 @@
                 @else
                     <div class="w-full h-full bg-gradient-to-br from-blue-950 via-gray-900 to-gray-900
                                 flex items-center justify-center">
-                        <svg width="48" height="48" fill="none" stroke="currentColor"
-                             stroke-width="1" viewBox="0 0 24 24" class="text-gray-700">
-                            <rect x="3" y="4" width="18" height="18" rx="2"/>
-                            <line x1="3" y1="10" x2="21" y2="10"/>
-                        </svg>
+                        <x-icon name="calendar" size="48" stroke-width="1" class="text-gray-700" />
                     </div>
                 @endif
             </div>
@@ -47,20 +40,12 @@
                 </div>
                 <div class="flex flex-wrap items-center gap-3">
                     <span class="flex items-center gap-1.5 text-sm text-gray-400">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
+                        <x-icon name="location" size="13" />
                         {{ $booking->event->location }}
                     </span>
                     <span class="text-gray-700">·</span>
                     <span class="flex items-center gap-1.5 text-sm text-gray-400">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="4" width="18" height="18" rx="2"/>
-                            <line x1="3" y1="10" x2="21" y2="10"/>
-                        </svg>
+                        <x-icon name="calendar" size="13" />
                         {{ $booking->event->start_date->format('M d, Y') }}
                         @if($booking->event->end_date)
                             – {{ $booking->event->end_date->format('M d, Y') }}
@@ -69,11 +54,7 @@
                     @if($booking->event->capacity)
                         <span class="text-gray-700">·</span>
                         <span class="flex items-center gap-1.5 text-sm text-gray-400">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-                                 stroke="currentColor" stroke-width="2">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                                <circle cx="9" cy="7" r="4"/>
-                            </svg>
+                            <x-icon name="users" size="13" />
                             {{ number_format($booking->event->capacity) }} capacity
                         </span>
                     @endif
@@ -210,10 +191,7 @@
                                 @csrf @method('PATCH')
                                 <button type="submit"
                                         class="w-full py-3.5 rounded-2xl text-white font-bold text-sm bg-emerald-500 hover:opacity-90 transition-all flex items-center justify-center gap-2">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                                         stroke="currentColor" stroke-width="2">
-                                        <polyline points="20 6 9 17 4 12"/>
-                                    </svg>
+                                    <x-icon name="check" size="15" />
                                     Accept Booking
                                 </button>
                             </form>

@@ -6,19 +6,14 @@
             <div class="flex items-center justify-between gap-4 mb-6">
                 <a href="{{ route('organiser.events.index') }}"
                    class="p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all">
-                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M19 12H5M12 19l-7-7 7-7"/>
-                    </svg>
+                    <x-icon name="arrow-left" size="18" />
                 </a>
 
                 <div class="flex items-center gap-2">
                     <a href="{{ route('organiser.events.edit', $event) }}"
                        class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold
                               text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                        </svg>
+                        <x-icon name="edit" size="13" />
                         Edit
                     </a>
 
@@ -29,9 +24,7 @@
                                     class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold
                                            text-white bg-emerald-500/80 hover:bg-emerald-500
                                            border border-emerald-500/50 transition-all">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="20 6 9 17 4 12"/>
-                                </svg>
+                                <x-icon name="check" size="13" />
                                 Publish
                             </button>
                         </form>
@@ -45,11 +38,7 @@
                                     class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold
                                            text-white bg-red-500/10 hover:bg-red-500/20
                                            border border-red-500/20 transition-all">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <line x1="15" y1="9" x2="9" y2="15"/>
-                                    <line x1="9" y1="9" x2="15" y2="15"/>
-                                </svg>
+                                <x-icon name="cancel" size="13" />
                                 Cancel Event
                             </button>
                         </form>
@@ -80,18 +69,12 @@
                         </div>
                         <div class="flex flex-wrap items-center gap-4 text-sm text-gray-300">
                             <span class="flex items-center gap-1.5">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                                    <circle cx="12" cy="10" r="3"/>
-                                </svg>
+                                <x-icon name="location" size="12" />
                                 {{ $event->location }}
                             </span>
                             <span class="text-white/20">·</span>
                             <span class="flex items-center gap-1.5">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="4" width="18" height="18" rx="2"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
+                                <x-icon name="calendar" size="12" />
                                 {{ $event->start_date->format('M d, Y') }}
                                 @if($event->end_date) – {{ $event->end_date->format('M d, Y') }} @endif
                             </span>
@@ -134,13 +117,7 @@
                         <div class="flex items-center gap-3 mb-5">
                             <div class="w-8 h-8 rounded-xl bg-white/5 border border-white/10
                                         flex items-center justify-center shrink-0">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                     stroke="currentColor" stroke-width="2" class="text-gray-400">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                    <polyline points="14 2 14 8 20 8"/>
-                                    <line x1="16" y1="13" x2="8" y2="13"/>
-                                    <line x1="16" y1="17" x2="8" y2="17"/>
-                                </svg>
+                                <x-icon name="file" size="14" class="text-gray-400" />
                             </div>
                             <h3 class="text-base font-bold text-white">About this Event</h3>
                         </div>
@@ -163,13 +140,7 @@
                         <div class="flex items-center gap-3 mb-5">
                             <div class="w-8 h-8 rounded-xl bg-white/5 border border-white/10
                                         flex items-center justify-center shrink-0">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                     stroke="currentColor" stroke-width="2" class="text-gray-400">
-                                    <rect x="3" y="4" width="18" height="18" rx="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6"/>
-                                    <line x1="8" y1="2" x2="8" y2="6"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
+                                <x-icon name="calendar" size="14" class="text-gray-400" />
                             </div>
                             <h3 class="text-base font-bold text-white">Event Details</h3>
                         </div>
@@ -196,12 +167,7 @@
                         <div class="flex items-center gap-3 mb-5">
                             <div class="w-8 h-8 rounded-xl bg-white/5 border border-white/10
                                         flex items-center justify-center shrink-0">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                     stroke="currentColor" stroke-width="2" class="text-gray-400">
-                                    <path d="M9 18V5l12-2v13"/>
-                                    <circle cx="6" cy="18" r="3"/>
-                                    <circle cx="18" cy="16" r="3"/>
-                                </svg>
+                                <x-icon name="music" size="14" class="text-gray-400" />
                             </div>
                             <h3 class="text-base font-bold text-white">Confirmed Lineup</h3>
                         </div>
@@ -210,12 +176,7 @@
                                         border border-dashed border-white/10 bg-white/[0.02]">
                                 <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10
                                             flex items-center justify-center mb-3">
-                                    <svg width="20" height="20" fill="none" stroke="currentColor"
-                                         stroke-width="1.5" viewBox="0 0 24 24" class="text-gray-600">
-                                        <path d="M9 18V5l12-2v13"/>
-                                        <circle cx="6" cy="18" r="3"/>
-                                        <circle cx="18" cy="16" r="3"/>
-                                    </svg>
+                                    <x-icon name="music" size="20" stroke-width="1.5" class="text-gray-600" />
                                 </div>
                                 <p class="text-gray-500 text-sm mb-1">No artists confirmed yet</p>
                                 <p class="text-gray-600 text-xs mb-4">Accepted bookings will appear here</p>
@@ -224,10 +185,7 @@
                                           text-white bg-gradient-to-r from-blue-600 to-blue-500
                                           hover:from-blue-500 hover:to-blue-400
                                           shadow-lg shadow-blue-500/20 transition-all">
-                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <line x1="12" y1="5" x2="12" y2="19"/>
-                                        <line x1="5" y1="12" x2="19" y2="12"/>
-                                    </svg>
+                                    <x-icon name="plus" size="13" />
                                     Browse Artists
                                 </a>
                             </div>
@@ -292,10 +250,7 @@
                                   text-white bg-gradient-to-r from-blue-600 to-blue-500
                                   hover:from-blue-500 hover:to-blue-400
                                   shadow-lg shadow-blue-500/20 transition-all">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="12" y1="5" x2="12" y2="19"/>
-                                <line x1="5" y1="12" x2="19" y2="12"/>
-                            </svg>
+                            <x-icon name="plus" size="13" />
                             Browse Artists
                         </a>
                     </div>
@@ -367,9 +322,7 @@
                     @if($event->ticketTypes->isEmpty())
                         <div class="flex flex-col items-center justify-center py-10 rounded-2xl border border-dashed border-white/10 bg-white/[0.02] mb-6">
                             <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-3">
-                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="text-gray-600">
-                                    <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2z"/>
-                                </svg>
+                                <x-icon name="ticket" size="20" stroke-width="1.5" class="text-gray-600" />
                             </div>
                             <p class="text-gray-500 text-sm mb-1">No ticket types yet</p>
                             <p class="text-gray-600 text-xs">Add your first ticket type below</p>
@@ -411,11 +364,7 @@
                                                 <button type="submit"
                                                         onclick="return confirm('Delete this ticket type?')"
                                                         class="p-2 rounded-lg text-gray-600 hover:text-red-400 hover:bg-red-500/10 transition-all">
-                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                        <polyline points="3 6 5 6 21 6"/>
-                                                        <path d="M19 6l-1 14H6L5 6"/>
-                                                        <path d="M10 11v6M14 11v6"/>
-                                                    </svg>
+                                                    <x-icon name="trash" size="14" />
                                                 </button>
                                             </form>
                                         @endif
@@ -430,18 +379,10 @@
                         <button @click="open = !open"
                                 class="flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-white transition-colors w-full">
                             <div class="w-6 h-6 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                                     stroke="#3b82f6" stroke-width="2">
-                                    <line x1="12" y1="5" x2="12" y2="19"/>
-                                    <line x1="5" y1="12" x2="19" y2="12"/>
-                                </svg>
+                                <x-icon name="plus" size="12" stroke="#3b82f6" />
                             </div>
                             Add ticket type
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                 stroke="currentColor" stroke-width="2" class="ml-auto transition-transform"
-                                 :class="open ? 'rotate-180' : ''">
-                                <polyline points="6 9 12 15 18 9"/>
-                            </svg>
+                            <x-icon name="chevron-down" size="14" class="ml-auto transition-transform" />
                         </button>
 
                         <div x-show="open" x-transition class="mt-5">
@@ -526,13 +467,7 @@
                         <div class="flex items-center gap-3 mb-5">
                             <div class="w-8 h-8 rounded-xl bg-white/5 border border-white/10
                                         flex items-center justify-center shrink-0">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                     stroke="currentColor" stroke-width="2" class="text-gray-400">
-                                    <rect x="3" y="3" width="7" height="7"/>
-                                    <rect x="14" y="3" width="7" height="7"/>
-                                    <rect x="3" y="14" width="7" height="7"/>
-                                    <rect x="14" y="14" width="3" height="3"/>
-                                </svg>
+                                <x-icon name="qr" size="14" class="text-gray-400" />
                             </div>
                             <div>
                                 <h3 class="text-base font-bold text-white">Validate Ticket</h3>
@@ -543,10 +478,7 @@
                         @if(session('validation_success'))
                             <div class="p-4 rounded-2xl flex items-start gap-3 mb-4
                                         bg-emerald-500/10 border border-emerald-500/20">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                     stroke="#10b981" stroke-width="2" class="shrink-0 mt-0.5">
-                                    <polyline points="20 6 9 17 4 12"/>
-                                </svg>
+                                <x-icon name="check" size="16" stroke="#10b981" class="shrink-0 mt-0.5" />
                                 <p class="text-sm font-semibold text-emerald-400">
                                     {{ session('validation_success') }}
                                 </p>
@@ -556,12 +488,7 @@
                         @if(session('validation_error'))
                             <div class="p-4 rounded-2xl flex items-start gap-3 mb-4
                                         bg-red-500/10 border border-red-500/20">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                     stroke="#ef4444" stroke-width="2" class="shrink-0 mt-0.5">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <line x1="15" y1="9" x2="9" y2="15"/>
-                                    <line x1="9" y1="9" x2="15" y2="15"/>
-                                </svg>
+                                <x-icon name="cancel" size="16" stroke="#ef4444" class="shrink-0 mt-0.5" />
                                 <p class="text-sm font-semibold text-red-400">
                                     {{ session('validation_error') }}
                                 </p>
@@ -599,12 +526,7 @@
                     <div class="flex flex-col items-center justify-center py-16 gap-3">
                         <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10
                                     flex items-center justify-center">
-                            <svg width="24" height="24" fill="none" stroke="currentColor"
-                                 stroke-width="1.5" viewBox="0 0 24 24" class="text-gray-600">
-                                <line x1="18" y1="20" x2="18" y2="10"/>
-                                <line x1="12" y1="20" x2="12" y2="4"/>
-                                <line x1="6" y1="20" x2="6" y2="14"/>
-                            </svg>
+                            <x-icon name="chart" size="24" stroke-width="1.5" class="text-gray-600" />
                         </div>
                         <p class="text-gray-400 text-sm font-medium">Statistics coming soon</p>
                         <p class="text-gray-600 text-xs">Revenue and ticket data will appear here</p>

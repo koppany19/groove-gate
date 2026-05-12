@@ -12,16 +12,13 @@
         <div class="absolute bottom-20 left-40 w-96 h-96 rounded-full bg-purple-500/5 blur-3xl"></div>
     @endif
 
-    <div class="absolute inset-0 bg-gradient-to-t from-(--artist-background) via-(--artist-background)/50 to-transparent"></div>
-    <div class="absolute inset-0 bg-gradient-to-r from-(--artist-background)/40 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-(--color-artist-bg) via-(--color-artist-bg)/50 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-(--color-artist-bg)/40 to-transparent"></div>
 
     <div class="absolute top-6 right-8 z-10 flex items-center gap-3">
         <a href="{{ route('organiser.events.edit', $event) }}"
            class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition-all">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-            </svg>
+            <x-icon name="edit" size="13" />
             Edit
         </a>
 
@@ -32,9 +29,7 @@
                         class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold
                                text-white bg-emerald-500/80 hover:bg-emerald-500
                                border border-emerald-500/50 backdrop-blur-md transition-all">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="20 6 9 17 4 12"/>
-                    </svg>
+                    <x-icon name="check" size="13" />
                     Publish
                 </button>
             </form>
@@ -46,11 +41,7 @@
                 <button type="submit"
                         onclick="return confirm('Are you sure?')"
                         class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white bg-red-500/20 hover:bg-red-500/40 border border-red-500/30 backdrop-blur-md transition-all">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="15" y1="9" x2="9" y2="15"/>
-                        <line x1="9" y1="9" x2="15" y2="15"/>
-                    </svg>
+                    <x-icon name="cancel" size="13" />
                     Cancel Event
                 </button>
             </form>
@@ -70,20 +61,13 @@
 
             <div class="flex flex-wrap gap-3">
                 <span class="flex items-center gap-1.5 text-sm text-purple-300 bg-purple-500/10 backdrop-blur-sm px-4 py-2 rounded-full border border-purple-500/20">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
-                    </svg>
+                    <x-icon name="location" size="13" />
                     {{ $event->location }}
                 </span>
 
                 @if($event->capacity)
                     <span class="flex items-center gap-1.5 text-sm text-emerald-300 bg-emerald-500/10 backdrop-blur-sm px-4 py-2 rounded-full border border-emerald-500/20">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
+                        <x-icon name="users" size="13" />
                         {{ number_format($event->capacity) }} capacity
                     </span>
                 @endif

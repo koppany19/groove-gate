@@ -2,9 +2,7 @@
 
     @if($success)
         <div class="flex items-center gap-3 px-4 py-3 mb-3 rounded-2xl bg-(--color-success)/10 border border-(--color-success)/20">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"/>
-            </svg>
+            <x-icon name="check" size="16" stroke="var(--color-success)" />
             <p class="text-(--color-success) text-sm">Booking request submitted successfully!</p>
         </div>
     @endif
@@ -12,10 +10,7 @@
     <button wire:click="$set('open', true)"
             class="w-full py-3.5 rounded-2xl text-white font-bold text-sm bg-gradient-to-r from-(--color-primary-hover) to-(--color-artist)
                    hover:from-(--color-artist) hover:to-blue-400 shadow-lg shadow-(--color-artist)/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.29 6.29l1.46-1.46a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-        </svg>
+        <x-icon name="phone" size="15" />
         Send Booking Request
     </button>
 
@@ -28,9 +23,7 @@
                     <div class="flex items-start justify-between">
                         <div class="flex items-center gap-4">
                             <div class="w-11 h-11 rounded-2xl bg-(--color-artist)/15 border border-(--color-artist)/20 flex items-center justify-center shrink-0">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-artist)" stroke-width="2">
-                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.29 6.29l1.46-1.46a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-                                </svg>
+                                <x-icon name="phone" size="18" stroke="var(--color-artist)" />
                             </div>
                             <div>
                                 <h2 class="text-xl font-black text-white tracking-tight">Send Booking Request</h2>
@@ -39,10 +32,7 @@
                         </div>
                         <button wire:click="$set('open', false)"
                                 class="p-2 rounded-xl hover:bg-white/10 text-(--color-muted-2) hover:text-white transition-all">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="18" y1="6" x2="6" y2="18"/>
-                                <line x1="6" y1="6" x2="18" y2="18"/>
-                            </svg>
+                            <x-icon name="x" size="16" />
                         </button>
                     </div>
                 </div>
@@ -51,19 +41,14 @@
 
                     @if($success)
                         <div class="flex items-center gap-3 px-4 py-3 rounded-2xl bg-(--color-success)/10 border border-(--color-success)/20">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
+                            <x-icon name="check" size="16" stroke="var(--color-success)" />
                             <p class="text-(--color-success) text-sm">Booking request submitted successfully!</p>
                         </div>
                     @endif
 
                     <div class="space-y-2">
                         <label class="flex items-center gap-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="4" width="18" height="18" rx="2"/>
-                                <line x1="3" y1="10" x2="21" y2="10"/>
-                            </svg>
+                            <x-icon name="calendar" size="12" />
                             Event
                         </label>
 
@@ -108,20 +93,13 @@
                     @if($selectedEventId)
                         <div class="space-y-2">
                             <label class="flex items-center gap-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <polyline points="12 6 12 12 16 14"/>
-                                </svg>
+                                <x-icon name="clock" size="12" />
                                 Performance Date
                             </label>
 
                             @if(empty($availableDates))
                                 <div class="flex items-center gap-3 px-4 py-3.5 rounded-2xl bg-(--color-danger)/10 border border-(--color-danger)/20">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-danger)" stroke-width="2">
-                                        <circle cx="12" cy="12" r="10"/>
-                                        <line x1="15" y1="9" x2="9" y2="15"/>
-                                        <line x1="9" y1="9" x2="15" y2="15"/>
-                                    </svg>
+                                    <x-icon name="cancel" size="16" stroke="var(--color-danger)" />
                                     <p class="text-red-400 text-sm">No available dates for this artist</p>
                                 </div>
                             @else
@@ -167,10 +145,7 @@
 
                         <div class="space-y-2">
                             <label class="flex items-center gap-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <polyline points="12 6 12 12 16 14"/>
-                                </svg>
+                                <x-icon name="clock" size="12" />
                                 Duration
                                 <span class="text-(--color-muted-2) normal-case font-normal">(min)</span>
                             </label>
@@ -187,9 +162,7 @@
 
                     <div class="space-y-2">
                         <label class="flex items-center gap-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                            </svg>
+                            <x-icon name="inbox" size="12" />
                             Message
                             <span class="text-(--color-muted-2) normal-case font-normal">(optional)</span>
                         </label>

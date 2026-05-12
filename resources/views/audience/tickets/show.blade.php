@@ -4,9 +4,7 @@
             <div class="flex items-center gap-4 mb-8">
                 <a href="{{ route('audience.dashboard') }}"
                    class="p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-(--color-border) transition-all">
-                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M19 12H5M12 19l-7-7 7-7"/>
-                    </svg>
+                    <x-icon name="arrow-left" size="18" />
                 </a>
                 <div>
                     <h1 class="text-2xl font-black tracking-tight">Jegyem</h1>
@@ -84,12 +82,7 @@
                         <a href="data:image/svg+xml;charset=utf-8,{{ rawurlencode($qrCode) }}"
                            download="ticket-{{ $ticket->barcode }}.svg"
                            class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium text-gray-400 border border-white/10 hover:border-white/20 hover:text-white transition-all">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                 stroke="currentColor" stroke-width="2">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                <polyline points="7 10 12 15 17 10"/>
-                                <line x1="12" y1="15" x2="12" y2="3"/>
-                            </svg>
+                            <x-icon name="download" size="14" />
                             Download QR Code
                         </a>
                     </div>

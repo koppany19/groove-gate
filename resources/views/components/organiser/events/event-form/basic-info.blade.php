@@ -4,10 +4,7 @@
 
     <div class="flex items-center gap-3 mb-7">
         <div class="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-            </svg>
+            <x-icon name="edit" size="16" stroke="#3b82f6" />
         </div>
         <div>
             <h2 class="text-base font-bold text-white">Basic Information</h2>
@@ -48,10 +45,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="space-y-1.5">
                 <label class="text-sm font-medium text-gray-300 flex items-center gap-1.5">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="2" class="text-blue-400">
-                        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                    </svg>
+                    <x-icon name="clock" size="12" class="text-blue-400" />
                     Start Date & Time
                 </label>
                 <input type="datetime-local"
@@ -67,10 +61,7 @@
 
             <div class="space-y-1.5">
                 <label class="text-sm font-medium text-gray-300 flex items-center gap-1.5">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="2" class="text-gray-500">
-                        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                    </svg>
+                    <x-icon name="clock" size="12" class="text-gray-500" />
                     End Date & Time
                     <span class="text-gray-600 font-normal text-xs ml-0.5">(optional)</span>
                 </label>

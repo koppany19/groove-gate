@@ -6,10 +6,7 @@
                 <a href="{{ route('artist.profile.show') }}"
                    class="p-2 rounded-xl bg-white/5 hover:bg-white/10
                           border border-white/10 transition-all">
-                    <svg width="18" height="18" fill="none" stroke="currentColor"
-                         stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M19 12H5M12 19l-7-7 7-7"/>
-                    </svg>
+                    <x-icon name="arrow-left" size="18" />
                 </a>
                 <div>
                     <h1 class="text-3xl font-black text-white tracking-tight">

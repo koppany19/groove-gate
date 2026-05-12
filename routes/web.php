@@ -6,7 +6,9 @@ use App\Http\Controllers\Audience\DashboardController;
 use App\Http\Controllers\Audience\TicketController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\OAuthController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Artist\InboxController as ArtistInboxController;
 use App\Http\Controllers\Organiser\ArtistBrowseController;
@@ -25,6 +27,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+//Auth
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
@@ -32,6 +35,12 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'index']) ->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
 
 
 
@@ -85,7 +94,6 @@ Route::middleware(['auth', 'role:audience', 'verified'])
     ->prefix('audience')
     ->name('audience.')
     ->group(function () {
-        Route::get('/dashboard', function () {return view('audience.dashboard');})->name('dashboard');
         Route::get('/events', [App\Http\Controllers\Audience\EventController::class, 'index'])->name('events.index');
         Route::get('/events/{event}', [App\Http\Controllers\Audience\EventController::class, 'show'])->name('events.show');
 

@@ -28,10 +28,7 @@
             @if($tickets->isEmpty())
                 <div class="flex flex-col items-center justify-center py-24">
                     <div class="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mb-6">
-                        <svg width="36" height="36" fill="none" stroke="currentColor"
-                             stroke-width="1.5" viewBox="0 0 24 24" class="text-gray-600">
-                            <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2z"/>
-                        </svg>
+                        <x-icon name="ticket" size="36" stroke-width="1.5" class="text-gray-600" />
                     </div>
                     <h2 class="text-xl font-bold text-white mb-2">No tickets yet</h2>
                     <p class="text-gray-500 text-sm mb-6">Browse events and get your first ticket.</p>
@@ -99,13 +96,7 @@
                                                   bg-gradient-to-r from-blue-600 to-blue-500
                                                   hover:from-blue-500 hover:to-blue-400
                                                   shadow-lg shadow-blue-500/20 transition-all">
-                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-                                                 stroke="currentColor" stroke-width="2">
-                                                <rect x="3" y="3" width="7" height="7"/>
-                                                <rect x="14" y="3" width="7" height="7"/>
-                                                <rect x="3" y="14" width="7" height="7"/>
-                                                <rect x="14" y="14" width="3" height="3"/>
-                                            </svg>
+                                            <x-icon name="qr" size="13" />
                                             View QR
                                         </a>
                                     </div>
@@ -168,13 +159,7 @@
                                                   text-sm font-medium text-gray-400
                                                   border border-white/10 hover:border-white/20
                                                   hover:text-white transition-all">
-                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-                                                 stroke="currentColor" stroke-width="2">
-                                                <rect x="3" y="3" width="7" height="7"/>
-                                                <rect x="14" y="3" width="7" height="7"/>
-                                                <rect x="3" y="14" width="7" height="7"/>
-                                                <rect x="14" y="14" width="3" height="3"/>
-                                            </svg>
+                                            <x-icon name="qr" size="13" />
                                             View QR
                                         </a>
                                     </div>

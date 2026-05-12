@@ -11,11 +11,7 @@
 
                 <div class="w-20 h-20 rounded-full bg-red-500/15 border border-red-500/25
                             flex items-center justify-center mx-auto mb-6">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none"
-                         stroke="#ef4444" stroke-width="2.5" stroke-linecap="round">
-                        <line x1="18" y1="6" x2="6" y2="18"/>
-                        <line x1="6" y1="6" x2="18" y2="18"/>
-                    </svg>
+                    <x-icon name="x" size="36" stroke="#ef4444" stroke-width="2.5" />
                 </div>
 
                 <h1 class="text-3xl font-black text-white mb-2">Maybe next time</h1>

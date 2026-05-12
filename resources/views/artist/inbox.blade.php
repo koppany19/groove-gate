@@ -23,11 +23,7 @@
             @if(auth()->user()->notifications->isEmpty())
                 <div class="flex flex-col items-center justify-center py-24">
                     <div class="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mb-6">
-                        <svg width="36" height="36" fill="none" stroke="currentColor"
-                             stroke-width="1.5" viewBox="0 0 24 24" class="text-gray-600">
-                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-                        </svg>
+                        <x-icon name="bell" size="36" stroke-width="1.5" class="text-gray-600" />
                     </div>
                     <h2 class="text-xl font-bold text-white mb-2">No notifications yet</h2>
                     <p class="text-gray-500 text-sm">Booking requests and updates will appear here.</p>
@@ -35,33 +31,20 @@
             @else
                 <div class="space-y-3">
                     @foreach(auth()->user()->notifications as $notification)
-                        <div class="bg-[#1A1D24] border rounded-3xl p-5 shadow-xl transition-all
+                        <div class="bg-(--color-surface-3) border rounded-3xl p-5 shadow-xl transition-all
                                     {{ is_null($notification->read_at) ? 'border-blue-500/20 hover:border-blue-500/30' : 'border-white/5 hover:border-white/10 opacity-70' }}">
                             <div class="flex items-start gap-4">
 
                                 <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10
                                             flex items-center justify-center flex-shrink-0 mt-0.5">
                                     @if($notification->data['type'] === 'booking_received')
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                             stroke="#9ca3af" stroke-width="2">
-                                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.29 6.29l1.46-1.46a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-                                        </svg>
+                                        <x-icon name="phone" size="14" stroke="var(--color-icon)" />
                                     @elseif($notification->data['type'] === 'booking_accepted')
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                             stroke="#9ca3af" stroke-width="2">
-                                            <polyline points="20 6 9 17 4 12"/>
-                                        </svg>
+                                        <x-icon name="check" size="14" stroke="var(--color-icon)" />
                                     @elseif($notification->data['type'] === 'booking_declined')
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                             stroke="#9ca3af" stroke-width="2">
-                                            <line x1="18" y1="6" x2="6" y2="18"/>
-                                            <line x1="6" y1="6" x2="18" y2="18"/>
-                                        </svg>
+                                        <x-icon name="x" size="14" stroke="var(--color-icon)" />
                                     @else
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                             stroke="#9ca3af" stroke-width="2">
-                                            <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2z"/>
-                                        </svg>
+                                        <x-icon name="ticket" size="14" stroke="var(--color-icon)" />
                                     @endif
                                 </div>
 

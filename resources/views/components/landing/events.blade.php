@@ -9,9 +9,7 @@
             <a href="{{ route('login') }}"
                class="hidden md:flex items-center gap-2 text-sm font-semibold text-gray-300 hover:text-white transition-colors duration-300">
                 View All Events
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform group-hover:translate-x-1">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
+                <x-icon name="arrow-right" size="16" class="transition-transform group-hover:translate-x-1" />
             </a>
         </div>
 
@@ -64,10 +62,7 @@
                                 {{ $event['title'] }}
                             </h4>
                             <p class="text-gray-400 text-sm flex items-center gap-2 mb-6">
-                                <svg class="text-gray-500" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                                    <circle cx="12" cy="10" r="3"/>
-                                </svg>
+                                <x-icon name="location" size="14" class="text-gray-500" />
                                 {{ $event['location'] }}
                             </p>
                         </div>
@@ -78,9 +73,7 @@
                                   group-hover:bg-(--color-primary) group-hover:border-(--color-primary) group-hover:shadow-lg group-hover:shadow-(--color-primary)/25
                                   transition-all duration-300">
                             View Event
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300">
-                                <path d="M5 12h14M12 5l7 7-7 7"/>
-                            </svg>
+                            <x-icon name="arrow-right" size="16" class="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300" />
                         </a>
                     </div>
                 </div>
@@ -90,7 +83,7 @@
         <div class="mt-8 text-center md:hidden">
             <a href="{{ route('login') }}" class="inline-flex items-center gap-2 text-sm font-semibold text-white bg-white/10 px-6 py-3 rounded-full hover:bg-white/20 transition-colors">
                 View All Events
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <x-icon name="arrow-right" size="16" />
             </a>
         </div>
 

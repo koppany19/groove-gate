@@ -14,11 +14,7 @@
             @else
                 <div class="w-full h-full bg-gradient-to-br from-blue-950 to-gray-900
                             flex items-center justify-center">
-                    <svg width="22" height="22" fill="none" stroke="currentColor"
-                         stroke-width="1.5" viewBox="0 0 24 24" class="text-gray-600">
-                        <rect x="3" y="4" width="18" height="18" rx="2"/>
-                        <line x1="3" y1="10" x2="21" y2="10"/>
-                    </svg>
+                    <x-icon name="calendar" size="22" stroke-width="1.5" class="text-gray-600" />
                 </div>
             @endif
         </div>
@@ -62,10 +58,7 @@
                           text-gray-400 border border-white/10 hover:border-white/20
                           hover:text-white hover:bg-blue-500 hover:border-blue-900 transition-all flex-shrink-0">
                     View
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2">
-                        <path d="M9 18l6-6-6-6"/>
-                    </svg>
+                    <x-icon name="arrow-right" size="13" />
                 </a>
             </div>
 

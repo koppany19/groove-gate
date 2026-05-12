@@ -54,10 +54,7 @@
        class="w-full py-3 rounded-2xl text-gray-400 font-medium text-sm
               border border-white/10 hover:border-white/20 hover:text-white
               transition-all flex items-center justify-center gap-2">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
+        <x-icon name="x" size="14" />
         Cancel
     </a>
 </div>

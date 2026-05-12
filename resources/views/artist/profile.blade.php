@@ -1,6 +1,6 @@
 <x-layout>
 
-    <div class="min-h-screen bg-(--artist-background) text-white -m-8">
+    <div class="min-h-screen bg-(--color-artist-bg) text-white -m-8">
         <x-artist.profile.hero :user="$user" :profile="$profile" />
 
         <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 xl:grid-cols-3 gap-8 mt-8 pb-20">
