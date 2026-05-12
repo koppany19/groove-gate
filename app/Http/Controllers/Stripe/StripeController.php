@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Ticket;
 use App\Models\TicketType;
+use App\Notifications\TicketPurchased;
 use Illuminate\Http\Request;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
@@ -85,7 +86,7 @@ class StripeController extends Controller
                     }
                 }
 
-                Ticket::create([
+                $ticket = Ticket::create([
                     'user_id' => $userId,
                     'ticket_type_id' => $ticketTypeId,
                     'seat_id' => $seatId,
@@ -93,6 +94,11 @@ class StripeController extends Controller
                     'barcode' => $this->generateBarcode(),
                     'stripe_payment_id' => $session->payment_intent
                 ]);
+
+                $ticket->load(['user', 'ticketType.event.organiserProfile.user']);
+                $ticket->ticketType->event->organiserProfile->user->notify(
+                    new TicketPurchased($ticket)
+                );
             }
         }
         return response()->json(['status' => 'ok'], 200);

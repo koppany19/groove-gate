@@ -22,43 +22,33 @@
     <nav class="flex-1 px-3 py-4 space-y-1">
 
         @if($user->isArtist())
-            <x-layout.nav-item route="artist.dashboard" icon="dashboard">
-                Dashboard
-            </x-layout.nav-item>
-            <x-layout.nav-item route="artist.profile.show" icon="user">
-                Profile
-            </x-layout.nav-item>
-            <x-layout.nav-item route="artist.bookings" icon="bookings">
-                Bookings
-            </x-layout.nav-item>
-            <x-layout.nav-item route="artist.inbox" icon="inbox">
-                Inbox
+            <x-layout.nav-item route="artist.dashboard" icon="dashboard" label="Dashboard" />
+            <x-layout.nav-item route="artist.profile.show" icon="user" label="Profile" />
+            <x-layout.nav-item route="artist.bookings" icon="bookings" label="Bookings" />
+            <x-layout.nav-item route="artist.inbox" icon="inbox" label="Inbox">
+                @if($user->unreadNotifications->count() > 0)
+                    <span class="ml-auto text-xs font-bold px-2 py-0.5 rounded-full bg-blue-500 text-white">
+                        {{ $user->unreadNotifications->count() }}
+                    </span>
+                @endif
             </x-layout.nav-item>
 
         @elseif($user->isOrganiser())
-            <x-layout.nav-item route="organiser.dashboard" icon="dashboard">
-                Dashboard
+            <x-layout.nav-item route="organiser.dashboard" icon="dashboard" label="Dashboard" />
+            <x-layout.nav-item route="organiser.events.index" icon="events" label="Events" />
+            <x-layout.nav-item route="organiser.artists.index" icon="user" label="Artists" />
+            <x-layout.nav-item route="organiser.inbox" icon="inbox" label="Inbox">
+                @if($user->unreadNotifications->count() > 0)
+                    <span class="ml-auto text-xs font-bold px-2 py-0.5 rounded-full bg-blue-500 text-white">
+                        {{ $user->unreadNotifications->count() }}
+                    </span>
+                @endif
             </x-layout.nav-item>
-            <x-layout.nav-item route="organiser.events.index" icon="events">
-                Events
-            </x-layout.nav-item>
-            <x-layout.nav-item route="organiser.artists.index" icon="user">
-                Artists
-            </x-layout.nav-item>
-            <x-layout.nav-item route="organiser.inbox" icon="inbox">
-                Inbox
-            </x-layout.nav-item>
-            <x-layout.nav-item route="organiser.profile" icon="settings">
-                Profile
-            </x-layout.nav-item>
+            <x-layout.nav-item route="organiser.profile" icon="settings" label="Profile" />
 
         @else
-            <x-layout.nav-item route="audience.dashboard" icon="dashboard">
-                Dashboard
-            </x-layout.nav-item>
-            <x-layout.nav-item route="audience.events.index" icon="events">
-                Events
-            </x-layout.nav-item>
+            <x-layout.nav-item route="audience.dashboard" icon="dashboard" label="Dashboard" />
+            <x-layout.nav-item route="audience.events.index" icon="events" label="Events" />
         @endif
 
     </nav>

@@ -1,4 +1,4 @@
-@props(['route' => '','icon'  => 'dashboard'])
+@props(['route' => '', 'icon' => 'dashboard', 'label' => ''])
 
 @php
     $active = request()->routeIs($route);
@@ -55,6 +55,8 @@
     </span>
 
 
-    <span>{{ $slot }}</span>
+    {{ $label }}
+
+    {{ $slot }}
 
 </a>

@@ -8,8 +8,10 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\OAuthController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\Artist\InboxController as ArtistInboxController;
 use App\Http\Controllers\Organiser\ArtistBrowseController;
 use App\Http\Controllers\Organiser\EventController;
+use App\Http\Controllers\Organiser\InboxController as OrganiserInboxController;
 
 use App\Http\Controllers\Organiser\TicketTypeController;
 use App\Http\Controllers\Organiser\TicketValidationController;
@@ -59,7 +61,8 @@ Route::middleware(['auth', 'verified', 'role:organiser'])
         Route::get('/profile/edit', [App\Http\Controllers\Organiser\ProfileController::class, 'edit'])->name('profile.edit');
         Route::put('/profile', [App\Http\Controllers\Organiser\ProfileController::class, 'update'])->name('profile.update');
 
-        Route::get('/inbox', fn() => view('organiser.inbox'))->name('inbox');
+        Route::get('/inbox', [OrganiserInboxController::class, 'index'])->name('inbox');
+        Route::post('/inbox/read', [OrganiserInboxController::class, 'markAllRead'])->name('inbox.read');
 
         Route::get('/artists', [ArtistBrowseController::class, 'index'])->name('artists.index');
         Route::get('/artists/{artist}', [ArtistBrowseController::class, 'show'])->name('artists.show');
@@ -103,11 +106,14 @@ Route::middleware(['auth', 'verified', 'role:artist'])
     ->name('artist.')
     ->group(function () {
         Route::get('/dashboard', [App\Http\Controllers\Artist\DashboardController::class, 'index'])->name('dashboard');
+
         Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::get('/bookings', fn() => view('artist.bookings'))->name('bookings');
-        Route::get('/inbox', fn() => view('artist.inbox'))->name('inbox');
+
+        Route::get('/inbox', [ArtistInboxController::class, 'index'])->name('inbox');
+        Route::post('/inbox/read', [ArtistInboxController::class, 'markAllRead'])->name('inbox.read');
+
         Route::post('/tracks', [TrackController::class, 'store'])->name('tracks.store');
         Route::delete('/tracks/{track}', [TrackController::class, 'destroy'])->name('tracks.destroy');
 

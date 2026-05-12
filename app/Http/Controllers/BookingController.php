@@ -6,6 +6,9 @@ use App\BookingStatus;
 use App\Http\Requests\StoreBookingRequest;
 use App\Models\Booking;
 use App\Models\Event;
+use App\Notifications\BookingAccepted;
+use App\Notifications\BookingDeclined;
+use App\Notifications\BookingReceived;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -49,7 +52,10 @@ class BookingController extends Controller
         }
 
         $validated['status'] = BookingStatus::PENDING->value;
-        Booking::create($validated);
+        $booking = Booking::create($validated);
+        $booking->artistProfile->user->notify(
+            new BookingReceived($booking->load(['event.organiserProfile.user', 'artistProfile']))
+        );
         return back()->with('success', 'Booking request sent successfully.');
     }
 
@@ -60,6 +66,9 @@ class BookingController extends Controller
         }
 
         $booking->update(['status' => BookingStatus::ACCEPTED->value]);
+        $booking->event->organiserProfile->user->notify(
+            new BookingAccepted($booking->load(['event', 'artistProfile']))
+        );
         return back()->with('success', 'Event accepted successfully.');
     }
 
@@ -70,6 +79,9 @@ class BookingController extends Controller
         }
 
         $booking->update(['status' => BookingStatus::DECLINED->value]);
+        $booking->event->organiserProfile->user->notify(
+            new BookingDeclined($booking->load(['event', 'artistProfile']))
+        );
         return back()->with('success', 'Event declined successfully.');
     }
 }
