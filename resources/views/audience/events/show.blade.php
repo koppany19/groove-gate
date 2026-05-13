@@ -166,6 +166,20 @@
 
             </div>
 
+            @if($event->has_seats && !$event->isSoldOut() && $event->isOnSale())
+                <div class="mb-4">
+                    <a href="{{ route('audience.events.seats', $event) }}"
+                       class="w-full py-3.5 rounded-2xl text-white font-bold text-sm
+                              bg-gradient-to-r from-blue-600 to-blue-500
+                              hover:from-blue-500 hover:to-blue-400
+                              shadow-lg shadow-blue-500/20 transition-all
+                              flex items-center justify-center gap-2">
+                        <x-icon name="ticket" size="15" />
+                        Choose Your Seats
+                    </a>
+                </div>
+            @endif
+
             @if($event->ticketTypes->isNotEmpty())
                 <div class="bg-[#1A1D24] border border-white/5 border-t-2 border-t-blue-500/60
                             rounded-3xl p-8 shadow-xl hover:border-white/10 transition-all">

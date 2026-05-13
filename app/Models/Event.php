@@ -129,4 +129,27 @@ class Event extends Model
         return now()->lt($this->sale_end_at);
     }
 
+    public function generateSeats(): void
+    {
+        if($this->seats()->count() > 0) {
+            return;
+        }
+
+        $rows = range('A', 'Z');
+        $seatsPerRow = 10;
+        $totalRows = (int) ceil($this->capacity / $seatsPerRow);
+
+        for ($i = 0; $i < $totalRows; $i++) {
+            $row = $rows[$i];
+            $thisRow = min($seatsPerRow, $this->capacity - ($i * $seatsPerRow));
+
+            for ($j = 1; $j <= $thisRow; $j++) {
+                $this->seats()->create([
+                    'seat_number' => $row . $j,
+                    'is_reserved' => false,
+                ]);
+            }
+        }
+    }
+
 }

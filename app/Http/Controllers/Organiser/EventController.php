@@ -117,6 +117,7 @@ class EventController extends Controller
             abort(403);
         }
         $event->update(['status' => EventStatus::PUBLISHED]);
+        if($event->has_seats) { $event->generateSeats();}
 
         return back()->with('success', 'Event published successfully.');
     }

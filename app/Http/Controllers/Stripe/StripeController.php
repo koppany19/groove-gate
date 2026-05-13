@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Stripe;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Models\Seat;
 use App\Models\Ticket;
 use App\Models\TicketType;
 use App\Notifications\TicketPurchased;
@@ -43,6 +44,45 @@ class StripeController extends Controller
         return redirect($session->url);
     }
 
+    public function createSeatsCheckoutSession(Request $request, Event $event)
+    {
+        $request->validate([
+            'seat_ids'   => 'required|array|max:4',
+            'seat_ids.*' => 'exists:seats,id',
+        ]);
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $seatCount = count($request->seat_ids);
+        $price     = $event->calculatePrice();
+
+        $session = Session::create([
+            'mode'                 => 'payment',
+            'payment_method_types' => ['card'],
+            'line_items'           => [[
+                'price_data' => [
+                    'currency'     => 'eur',
+                    'product_data' => [
+                        'name'        => $event->name,
+                        'description' => $seatCount . ' seat(s)',
+                    ],
+                    'unit_amount'  => (int) ($price * 100),
+                ],
+                'quantity' => $seatCount,
+            ]],
+            'success_url' => route('audience.checkout.success') . '?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url'  => route('audience.events.seats', $event),
+            'metadata'    => [
+                'event_id' => $event->id,
+                'user_id'  => auth()->id(),
+                'seat_ids' => implode(',', $request->seat_ids),
+                'price'    => $price,
+            ],
+        ]);
+
+        return redirect($session->url);
+    }
+
     private function generateBarcode(): string
     {
         do {
@@ -68,37 +108,66 @@ class StripeController extends Controller
         if ($event->type === 'checkout.session.completed') {
             $session = $event->data->object;
             $eventId = $session->metadata->event_id;
-            $ticketTypeId = $session->metadata->ticket_type_id;
-            $userId = $session->metadata->user_id;
+            $userId  = $session->metadata->user_id;
 
-            $exists = Ticket::where('stripe_payment_id', $session->payment_intent)->exists();
-            if (!$exists) {
-                $ticketType = TicketType::find($ticketTypeId);
-                $eventModel = Event::find($eventId);
-                $seatId = null;
+            if (!empty($session->metadata->seat_ids)) {
+                $seatIds    = explode(',', $session->metadata->seat_ids);
+                $price      = $session->metadata->price;
+                $ticketType = TicketType::where('event_id', $eventId)->first();
 
-                if($eventModel->has_seats) {
-                    $seat = $eventModel->seats()->where('is_reserved', '=', false)->first();
-                    if($seat)
-                    {
-                        $seat->update(['is_reserved' => true]);
-                        $seatId = $seat->id;
+                foreach ($seatIds as $seatId) {
+                    $exists = Ticket::where('stripe_payment_id', $session->payment_intent)->where('seat_id', $seatId)->exists();
+                    if (!$exists) {
+                        $seat = Seat::find($seatId);
+                        if ($seat) {
+                            $seat->update(['is_reserved' => true]);
+
+                            $ticket = Ticket::create([
+                                'user_id'           => $userId,
+                                'ticket_type_id'    => $ticketType->id,
+                                'seat_id'           => $seatId,
+                                'barcode'           => $this->generateBarcode(),
+                                'price'             => $price,
+                                'stripe_payment_id' => $session->payment_intent,
+                            ]);
+
+                            $ticket->load(['user', 'ticketType.event.organiserProfile.user']);
+                            $ticket->ticketType->event->organiserProfile->user->notify(
+                                new TicketPurchased($ticket)
+                            );
+                        }
                     }
                 }
+            } else {
+                $ticketTypeId = $session->metadata->ticket_type_id;
+                $exists = Ticket::where('stripe_payment_id', $session->payment_intent)->exists();
+                if (!$exists) {
+                    $ticketType = TicketType::find($ticketTypeId);
+                    $eventModel = Event::find($eventId);
+                    $seatId     = null;
 
-                $ticket = Ticket::create([
-                    'user_id' => $userId,
-                    'ticket_type_id' => $ticketTypeId,
-                    'seat_id' => $seatId,
-                    'price' => $ticketType->price,
-                    'barcode' => $this->generateBarcode(),
-                    'stripe_payment_id' => $session->payment_intent
-                ]);
+                    if ($eventModel->has_seats) {
+                        $seat = $eventModel->seats()->where('is_reserved', false)->first();
+                        if ($seat) {
+                            $seat->update(['is_reserved' => true]);
+                            $seatId = $seat->id;
+                        }
+                    }
 
-                $ticket->load(['user', 'ticketType.event.organiserProfile.user']);
-                $ticket->ticketType->event->organiserProfile->user->notify(
-                    new TicketPurchased($ticket)
-                );
+                    $ticket = Ticket::create([
+                        'user_id'           => $userId,
+                        'ticket_type_id'    => $ticketTypeId,
+                        'seat_id'           => $seatId,
+                        'price'             => $ticketType->price,
+                        'barcode'           => $this->generateBarcode(),
+                        'stripe_payment_id' => $session->payment_intent,
+                    ]);
+
+                    $ticket->load(['user', 'ticketType.event.organiserProfile.user']);
+                    $ticket->ticketType->event->organiserProfile->user->notify(
+                        new TicketPurchased($ticket)
+                    );
+                }
             }
         }
         return response()->json(['status' => 'ok'], 200);

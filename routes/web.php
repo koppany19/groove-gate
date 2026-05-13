@@ -97,6 +97,7 @@ Route::middleware(['auth', 'role:audience', 'verified'])
         Route::get('/events', [App\Http\Controllers\Audience\EventController::class, 'index'])->name('events.index');
         Route::get('/events/{event}', [App\Http\Controllers\Audience\EventController::class, 'show'])->name('events.show');
 
+        Route::post('/checkout/seats/{event}', [StripeController::class, 'createSeatsCheckoutSession'])->name('checkout.seats');
         Route::post('/checkout/{event}/{ticketType}', [StripeController::class, 'createCheckoutSession'])->name('checkout.create');
         Route::get('/checkout/success', [StripeController::class, 'success'])->name('checkout.success');
         Route::get('/checkout/cancel', [StripeController::class, 'cancel'])->name('checkout.cancel');
@@ -104,6 +105,8 @@ Route::middleware(['auth', 'role:audience', 'verified'])
         Route::get('/tickets/{barcode}', [TicketController::class, 'show'])->name('tickets.show');
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('/events/{event}/seats', [App\Http\Controllers\Audience\EventController::class, 'seats'])->name('events.seats');
     });
 
 Route::post('/stripe/webhook', [StripeController::class, 'handleWebhook'])->name('stripe.webhook');

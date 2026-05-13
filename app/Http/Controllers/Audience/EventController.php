@@ -19,25 +19,7 @@ class EventController extends Controller
         return view('audience.events.index', compact('events'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Event $event)
     {
         if($event->status !== EventStatus::PUBLISHED) {
@@ -48,27 +30,26 @@ class EventController extends Controller
         return view('audience.events.show', compact('event'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Event $event)
+    public function seats(Event $event)
     {
-        //
-    }
+        if($event->status !== EventStatus::PUBLISHED) { abort(404); }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Event $event)
-    {
-        //
-    }
+        if(!$event->has_seats){
+            return redirect()->route('audience.events.show', $event);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Event $event)
-    {
-        //
+        if ($event->seats()->count() === 0) {
+            $event->generateSeats();
+        }
+
+        $event->load(['seats' => function($query) {
+            $query->orderBy('seat_number');
+        }, 'ticketTypes']);
+
+        $seats = $event->seats->groupBy(function($seat) {
+            return substr($seat->seat_number, 0, 1);
+        });
+
+        return view('audience.events.seats', compact('event', 'seats'));
     }
 }

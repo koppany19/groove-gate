@@ -81,4 +81,21 @@
         @apply p-6;
         height: 260px;
     }
+
+    .seat {
+        @apply w-11 h-11 rounded-xl flex items-center justify-center border transition-all duration-150 select-none text-[11px] font-bold;
+    }
+
+    .seat-available {
+        @apply bg-white/5 border-white/10 text-(--color-muted) cursor-pointer hover:border-blue-500/40 hover:text-white hover:bg-white/10;
+    }
+
+    .seat-selected {
+        @apply bg-blue-500 border-blue-400 text-white;
+        box-shadow: 0 2px 12px rgba(59, 130, 246, 0.35);
+    }
+
+    .seat-taken {
+        @apply bg-white/[0.03] border-white/[0.04] text-(--color-muted-2) cursor-not-allowed opacity-40;
+    }
 }

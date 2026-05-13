@@ -17,18 +17,34 @@ class TicketTypeController extends Controller
             abort(403);
         }
 
+        $existingQuantity = $event->ticketTypes()->sum('quantity');
+        $newQuantity = $validated['quantity'];
+        if ($existingQuantity + $newQuantity > $event->capacity) {
+            return back()->withErrors([
+                'quantity' => 'Total ticket quantity cannot exceed event capacity of ' . $event->capacity . '. Available: ' . ($event->capacity - $existingQuantity) . ' tickets.'
+            ])->withInput();
+        }
+
         $event->ticketTypes()->create($validated);
         return back()->with('success', 'Ticket Type created');
     }
 
-    public function update(StoreTicketTypeRequest $request, Event $event)
+    public function update(StoreTicketTypeRequest $request, Event $event, TicketType $ticketType)
     {
         $validated = $request->validated();
         if($event->organiser_profile_id !== auth()->user()->organiserProfile->id) {
             abort(403);
         }
 
-        $event->ticketTypes()->update($validated);
+        $existingQuantity = $event->ticketTypes()->where('id', '!=', $ticketType->id) ->sum('quantity');
+        $newQuantity = $validated['quantity'];
+        if ($existingQuantity + $newQuantity > $event->capacity) {
+            return back()->withErrors([
+                'quantity' => 'Total ticket quantity cannot exceed event capacity of ' . $event->capacity . '. Available: ' . ($event->capacity - $existingQuantity) . ' tickets.'
+            ])->withInput();
+        }
+
+        $ticketType->update($validated);
         return back()->with('success', 'Ticket Type updated');
     }
 
