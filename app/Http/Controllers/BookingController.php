@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\BookingStatus;
 use App\Http\Requests\StoreBookingRequest;
+use App\MessageType;
 use App\Models\Booking;
+use App\Models\Conversation;
 use App\Models\Event;
 use App\Notifications\BookingAccepted;
 use App\Notifications\BookingDeclined;
@@ -53,9 +55,28 @@ class BookingController extends Controller
 
         $validated['status'] = BookingStatus::PENDING->value;
         $booking = Booking::create($validated);
-        $booking->artistProfile->user->notify(
-            new BookingReceived($booking->load(['event.organiserProfile.user', 'artistProfile']))
-        );
+
+        $booking->artistProfile->user->notify(new BookingReceived($booking->load(['event.organiserProfile.user', 'artistProfile'])));
+
+        $conversation = Conversation::create([
+            'booking_id'   => $booking->id,
+            'organiser_id' => auth()->id(),
+            'artist_id'    => $booking->artistProfile->user_id,
+        ]);
+
+        $conversation->messages()->create([
+            'sender_id' => auth()->id(),
+            'type'      => MessageType::BOOKING,
+            'metadata'  => [
+                'booking_id'       => $booking->id,
+                'event_name'       => $booking->event->name,
+                'event_location'   => $booking->event->location,
+                'performance_date' => $booking->performance_date?->format('M d, Y'),
+                'duration'         => $booking->duration,
+                'fee'              => $booking->fee,
+            ],
+        ]);
+
         return back()->with('success', 'Booking request sent successfully.');
     }
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\OAuthController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Artist\InboxController as ArtistInboxController;
+use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\Organiser\ArtistBrowseController;
 use App\Http\Controllers\Organiser\EventController;
 use App\Http\Controllers\Organiser\InboxController as OrganiserInboxController;
@@ -87,6 +88,9 @@ Route::middleware(['auth', 'verified', 'role:organiser'])
         Route::delete('/events/{event}/ticket-types/{ticketType}', [TicketTypeController::class, 'destroy'])->name('events.ticket-types.destroy');
 
         Route::post('/events/{event}/validate-ticket', [TicketValidationController::class, 'validate'])->name('events.validate-ticket');
+
+        Route::get('/messages', [ConversationController::class, 'organiserIndex'])->name('messages.index');
+        Route::get('/messages/{conversation}', [ConversationController::class, 'show'])->name('messages.show');
     });
 
 // Audience routes
@@ -132,4 +136,7 @@ Route::middleware(['auth', 'verified', 'role:artist'])
         Route::get('/bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
         Route::patch('/bookings/{booking}/accept', [BookingController::class, 'accept'])->name('bookings.accept');
         Route::patch('/bookings/{booking}/decline', [BookingController::class, 'decline'])->name('bookings.decline');
+
+        Route::get('/messages', [ConversationController::class, 'artistIndex'])->name('messages.index');
+        Route::get('/messages/{conversation}', [ConversationController::class, 'show'])->name('messages.show');
     });

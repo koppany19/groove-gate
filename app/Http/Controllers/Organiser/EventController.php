@@ -56,9 +56,55 @@ class EventController extends Controller
         if($event->organiser_profile_id != auth()->user()->organiserProfile->id) {
             abort(403);
         }
-        $event->load(['confirmedBookings.artistProfile.user', 'bookings.artistProfile.user', 'ticketTypes']);
 
-        return view('organiser.events.show', compact('event'));
+        $event->load([
+            'confirmedBookings.artistProfile.user',
+            'bookings.artistProfile.user',
+            'ticketTypes.tickets',
+        ]);
+
+        $stats = [
+            'totalTicketsSold' => $event->tickets()->count(),
+            'totalRevenue'     => $event->tickets()->sum('tickets.price'),
+            'occupancyRate'    => $event->capacity > 0
+                ? round(($event->tickets()->count() / $event->capacity) * 100, 1)
+                : 0,
+            'availableSeats'   => $event->availableSeats(),
+            'ticketTypes'      => $event->ticketTypes->map(fn($type) => [
+                'name'    => $type->name,
+                'sold'    => $type->soldTickets(),
+                'total'   => $type->quantity,
+                'revenue' => $type->tickets->sum('price'),
+            ]),
+            'chartData'        => $this->buildEventChartData($event),
+        ];
+
+        return view('organiser.events.show', compact('event', 'stats'));
+    }
+
+    private function buildEventChartData(Event $event): array
+    {
+        $days    = collect();
+        $tickets = collect();
+        $revenue = collect();
+
+        for ($i = 6; $i >= 0; $i--) {
+            $date = now()->subDays($i);
+            $days->push($date->format('D'));
+
+            $tickets->push(
+                $event->tickets()->whereDate('tickets.created_at', $date->toDateString())->count()
+            );
+            $revenue->push(
+                round($event->tickets()->whereDate('tickets.created_at', $date->toDateString())->sum('tickets.price'), 2)
+            );
+        }
+
+        return [
+            'labels'  => $days->toArray(),
+            'tickets' => $tickets->toArray(),
+            'revenue' => $revenue->toArray(),
+        ];
     }
 
     /**
@@ -66,6 +112,7 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
+
         if($event->organiser_profile_id != auth()->user()->organiserProfile->id) {
             abort(403);
         }

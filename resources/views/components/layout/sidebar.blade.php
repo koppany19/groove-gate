@@ -32,6 +32,12 @@
                     </span>
                 @endif
             </x-layout.nav-item>
+            <x-layout.nav-item route="artist.messages.index" icon="chat" label="Messages">
+                @php $unread = $user->conversations()->sum(fn($c) => $c->unreadCount($user->id)); @endphp
+                @if($unread > 0)
+                    <span class="unread-badge ml-auto">{{ $unread }}</span>
+                @endif
+            </x-layout.nav-item>
 
         @elseif($user->isOrganiser())
             <x-layout.nav-item route="organiser.dashboard" icon="dashboard" label="Dashboard" />
@@ -42,6 +48,12 @@
                     <span class="ml-auto text-xs font-bold px-2 py-0.5 rounded-full bg-blue-500 text-white">
                         {{ $user->unreadNotifications->count() }}
                     </span>
+                @endif
+            </x-layout.nav-item>
+            <x-layout.nav-item route="organiser.messages.index" icon="chat" label="Messages">
+                @php $unread = $user->conversations()->sum(fn($c) => $c->unreadCount($user->id)); @endphp
+                @if($unread > 0)
+                    <span class="unread-badge ml-auto">{{ $unread }}</span>
                 @endif
             </x-layout.nav-item>
             <x-layout.nav-item route="organiser.profile" icon="settings" label="Profile" />

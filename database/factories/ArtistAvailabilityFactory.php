@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\ArtistAvailability;
 use App\Models\ArtistProfile;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +21,7 @@ class ArtistAvailabilityFactory extends Factory
     {
         return [
             'artist_profile_id' => ArtistProfile::factory(),
-            'date'              => fake()->unique()->dateTimeBetween('now', '+3 months')->format('Y-m-d'),
+            'date'              => Carbon::today()->addDays(fake()->unique()->numberBetween(1, 90))->format('Y-m-d'),
             'is_available'      => false,
         ];
     }

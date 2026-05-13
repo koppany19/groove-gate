@@ -98,4 +98,48 @@
     .seat-taken {
         @apply bg-white/[0.03] border-white/[0.04] text-(--color-muted-2) cursor-not-allowed opacity-40;
     }
+
+    .message-bubble-me {
+        @apply bg-blue-500 text-white rounded-2xl rounded-br-sm px-4 py-3;
+    }
+
+    .message-bubble-other {
+        @apply bg-(--color-surface-3) border border-white/5 text-(--color-foreground) rounded-2xl rounded-bl-sm px-4 py-3;
+    }
+
+    .message-avatar {
+        @apply w-8 h-8 rounded-full overflow-hidden flex-shrink-0 bg-white/10 flex items-center justify-center;
+    }
+
+    .booking-card {
+        @apply bg-(--color-surface-3) border border-blue-500/20 border-t-2 border-t-blue-500/60 rounded-2xl p-5 w-full max-w-sm shadow-xl;
+    }
+
+    .booking-card-row {
+        @apply flex items-center justify-between text-xs;
+    }
+
+    .message-input {
+        @apply w-full px-4 py-3 rounded-2xl text-white text-sm bg-white/5 border border-white/10 outline-none focus:border-blue-500/50 transition-all placeholder-(--color-muted-2) resize-none;
+    }
+
+    .send-btn {
+        @apply p-3 rounded-2xl text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 shadow-lg shadow-blue-500/20 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0;
+    }
+
+    .conversation-card {
+        @apply block bg-(--color-surface-3) border border-white/5 rounded-3xl p-5 shadow-xl hover:border-white/10 transition-all;
+    }
+
+    .conversation-avatar {
+        @apply w-12 h-12 rounded-full overflow-hidden flex-shrink-0 bg-white/10 flex items-center justify-center;
+    }
+
+    .unread-badge {
+        @apply text-xs font-bold px-2 py-0.5 rounded-full bg-blue-500 text-white flex-shrink-0;
+    }
+
+    .empty-state {
+        @apply flex flex-col items-center justify-center py-24 text-center;
+    }
 }

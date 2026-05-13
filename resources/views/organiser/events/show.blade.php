@@ -521,18 +521,124 @@
                 </div>
             </div>
 
-            <div x-show="tab === 'statistics'">
-                <div class="bg-[#121A27] border border-white/5 rounded-3xl p-8 shadow-xl">
-                    <div class="flex flex-col items-center justify-center py-16 gap-3">
-                        <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10
-                                    flex items-center justify-center">
-                            <x-icon name="chart" size="24" stroke-width="1.5" class="text-gray-600" />
-                        </div>
-                        <p class="text-gray-400 text-sm font-medium">Statistics coming soon</p>
-                        <p class="text-gray-600 text-xs">Revenue and ticket data will appear here</p>
-                    </div>
+            <div x-show="tab === 'statistics'" class="space-y-6">
+
+                <div class="grid grid-cols-2 xl:grid-cols-4 gap-4">
+                    <x-stat-card label="Tickets Sold" value="{{ $stats['totalTicketsSold'] }}" color="blue" />
+                    <x-stat-card label="Total Revenue" value="€{{ number_format($stats['totalRevenue'], 2) }}" color="purple" />
+                    <x-stat-card label="Occupancy Rate" value="{{ $stats['occupancyRate'] }}%" color="yellow" />
+                    <x-stat-card label="Available Seats" value="{{ $stats['availableSeats'] }}" color="blue" />
                 </div>
+
+                <div class="bg-(--color-surface-3) border border-white/5 rounded-3xl p-8 shadow-xl">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-xl bg-white/5 border border-white/10
+                                    flex items-center justify-center shrink-0">
+                            <x-icon name="chart" size="14" class="text-gray-400" />
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-white">Last 7 Days</h3>
+                            <p class="text-xs text-gray-500 mt-0.5">Ticket sales and revenue</p>
+                        </div>
+                    </div>
+                    <canvas id="eventChart" height="100"></canvas>
+                </div>
+
+                @if($stats['ticketTypes']->isNotEmpty())
+                    <div class="bg-(--color-surface-3) border border-white/5 rounded-3xl p-8 shadow-xl">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-8 h-8 rounded-xl bg-white/5 border border-white/10
+                                        flex items-center justify-center shrink-0">
+                                <x-icon name="ticket" size="14" class="text-gray-400" />
+                            </div>
+                            <h3 class="text-base font-bold text-white">Ticket Type Breakdown</h3>
+                        </div>
+                        <div class="space-y-4">
+                            @foreach($stats['ticketTypes'] as $type)
+                                <div>
+                                    <div class="flex items-center justify-between mb-1.5">
+                                        <span class="text-sm font-medium text-white">{{ $type['name'] }}</span>
+                                        <div class="flex items-center gap-4">
+                                            <span class="text-xs text-gray-500">{{ $type['sold'] }} / {{ $type['total'] }} sold</span>
+                                            <span class="text-sm font-bold text-blue-400">€{{ number_format($type['revenue'], 2) }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="h-2 rounded-full bg-white/5 overflow-hidden">
+                                        <div class="h-full rounded-full bg-gradient-to-r from-blue-600 to-blue-400 transition-all"
+                                             style="width: {{ $type['total'] > 0 ? round(($type['sold'] / $type['total']) * 100) : 0 }}%">
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
             </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const ctx = document.getElementById('eventChart');
+                    if (!ctx) return;
+
+                    new Chart(ctx, {
+                        data: {
+                            labels: @json($stats['chartData']['labels']),
+                            datasets: [
+                                {
+                                    type: 'bar',
+                                    label: 'Tickets',
+                                    data: @json($stats['chartData']['tickets']),
+                                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                                    borderColor: 'rgba(59, 130, 246, 0.6)',
+                                    borderWidth: 1,
+                                    borderRadius: 6,
+                                    yAxisID: 'y',
+                                },
+                                {
+                                    type: 'line',
+                                    label: 'Revenue (€)',
+                                    data: @json($stats['chartData']['revenue']),
+                                    borderColor: 'rgba(168, 85, 247, 0.8)',
+                                    backgroundColor: 'rgba(168, 85, 247, 0.05)',
+                                    borderWidth: 2,
+                                    pointBackgroundColor: 'rgba(168, 85, 247, 1)',
+                                    pointRadius: 4,
+                                    tension: 0.4,
+                                    fill: true,
+                                    yAxisID: 'y1',
+                                },
+                            ],
+                        },
+                        options: {
+                            responsive: true,
+                            interaction: { mode: 'index', intersect: false },
+                            plugins: {
+                                legend: {
+                                    labels: { color: '#9ca3af', font: { size: 12 } },
+                                },
+                            },
+                            scales: {
+                                x: {
+                                    ticks: { color: '#6b7280' },
+                                    grid: { color: 'rgba(255,255,255,0.05)' },
+                                },
+                                y: {
+                                    position: 'left',
+                                    ticks: { color: '#6b7280', stepSize: 1 },
+                                    grid: { color: 'rgba(255,255,255,0.05)' },
+                                },
+                                y1: {
+                                    position: 'right',
+                                    ticks: { color: '#6b7280', callback: v => '€' + v },
+                                    grid: { drawOnChartArea: false },
+                                },
+                            },
+                        },
+                    });
+                });
+            </script>
         </div>
     </div>
 </x-layout>
